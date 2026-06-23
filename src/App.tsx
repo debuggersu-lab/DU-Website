@@ -1,20 +1,48 @@
-import { Button } from "@/components/ui/button"
+import { useState, useCallback } from "react"
+import { CinematicSplash } from "@/components/CinematicSplash"
+import { VideoBackground } from "@/components/VideoBackground"
+import { CursorGlow } from "@/components/CursorGlow"
+import { Navbar } from "@/components/Navbar"
+import { HeroSection } from "@/components/HeroSection"
+import { GlowingDivider } from "@/components/GlowingDivider"
+import { ParticleCanvas } from "@/components/ParticleCanvas"
+import { ProjectsSection } from "@/components/ProjectsSection"
+import { EventsSection } from "@/components/EventsSection"
+import { LeadershipSection } from "@/components/LeadershipSection"
+import { Footer } from "@/components/Footer"
+import { useScrollReveal } from "@/hooks/useScrollReveal"
+import { useMagneticHover } from "@/hooks/useMagneticHover"
+import { useTiltCards } from "@/hooks/useTiltCards"
 
 export function App() {
+  const [splashDone, setSplashDone] = useState(false)
+
+  const handleSplashComplete = useCallback(() => {
+    setSplashDone(true)
+  }, [])
+
+  useScrollReveal()
+  useMagneticHover()
+  useTiltCards()
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      {!splashDone && <CinematicSplash onComplete={handleSplashComplete} />}
+      <VideoBackground />
+      <CursorGlow />
+      <Navbar />
+
+      <main className="relative z-10">
+        <HeroSection animationReady={splashDone} />
+        <GlowingDivider />
+        <ParticleCanvas />
+        <ProjectsSection />
+        <EventsSection />
+        <LeadershipSection />
+      </main>
+
+      <Footer />
+    </>
   )
 }
 
