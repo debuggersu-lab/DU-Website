@@ -159,10 +159,11 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
         className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full reveal"
         style={{ maxWidth: "1440px", padding: "0 64px" }}
       >
-        <StatCard icon="groups" target={2500} label="Active Developers" started={countersStarted} />
-        <StatCard icon="rocket_launch" target={120} label="Projects Built" started={countersStarted} />
-        <StatCard icon="emoji_events" target={45} label="Hackathons Won" started={countersStarted} />
+        <StatCard icon="groups" target={250} label="Active members" started={countersStarted} />
+        <StatCard icon="rocket_launch" target={10} label="Projects build" started={countersStarted} />
+        <StatCard icon="emoji_events" target={20} label="Hackathons represented" started={countersStarted} />
       </div>
+
     </section>
   )
 }

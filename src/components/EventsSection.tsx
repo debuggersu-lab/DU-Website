@@ -15,9 +15,9 @@ export function EventsSection() {
         <div className="flex flex-col md:flex-row gap-16 items-center">
           {/* Left: Featured Hackathon */}
           <div className="w-full md:w-1/2 scale-in">
-            <h2 className="font-headline-lg mb-6 uppercase">Upcoming Hackathons</h2>
+            <h2 className="font-headline-lg mb-6 uppercase">Upcoming Events</h2>
             <p className="font-body-lg mb-10" style={{ color: "#e2bfb0" }}>
-              Test your limits and build the future in our intensive high-performance hackathons. The clock is ticking.
+              Test your limits and build the future in our intensive workshops, hackathons, and developer meetups.
             </p>
 
             <div className="tilt-card glass-card p-8 rounded-2xl relative overflow-hidden group">
@@ -95,7 +95,7 @@ export function EventsSection() {
               className="magnetic-hover btn-primary w-full mt-6 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold"
               style={{ color: "#572000", boxShadow: "0 0 20px rgba(255,107,0,0.2)" }}
             >
-              All Upcoming Hackathons
+              All Upcoming Events
             </button>
           </div>
         </div>
