@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export function useTiltCards() {
+export function useTiltCards(dependency?: any) {
   useEffect(() => {
     const tiltCards = document.querySelectorAll<HTMLElement>(".tilt-card")
 
@@ -47,6 +47,6 @@ export function useTiltCards() {
         card.removeEventListener("mouseleave", leave)
       })
     }
-  }, [])
+  }, [dependency])
 }
 

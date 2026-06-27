@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { CinematicSplash } from "@/components/CinematicSplash"
 import { VideoBackground } from "@/components/VideoBackground"
 import { CursorGlow } from "@/components/CursorGlow"
@@ -31,6 +31,8 @@ export function App() {
     return false
   })
 
+  const [showMock, setShowMock] = useState(false)
+
   const handleSplashComplete = useCallback(() => {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("splashPlayed", "true")
@@ -40,7 +42,23 @@ export function App() {
 
   useScrollReveal()
   useMagneticHover()
-  useTiltCards()
+  useTiltCards(showMock)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === "x") {
+        if (
+          document.activeElement?.tagName === "INPUT" ||
+          document.activeElement?.tagName === "TEXTAREA"
+        ) {
+          return
+        }
+        setShowMock((prev) => !prev)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   return (
     <>
@@ -54,10 +72,10 @@ export function App() {
 
         <GlowingDivider />
         <ParticleCanvas />
-        <ProjectsSection />
-        <EventsSection />
+        <ProjectsSection showMock={showMock} />
+        <EventsSection showMock={showMock} />
         <GlowingDivider />
-        <AchievementsSection />
+        <AchievementsSection showMock={showMock} />
         <LeadershipSection />
         <GlowingDivider />
         <ContactSection />
@@ -69,5 +87,6 @@ export function App() {
 }
 
 export default App
+
 
 

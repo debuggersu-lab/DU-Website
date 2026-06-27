@@ -4,7 +4,11 @@ const EVENTS = [
   { day: "05", month: "Nov", title: "Winter Startup Showcase", subtitle: "Pitch your project to potential investors." },
 ]
 
-export function EventsSection() {
+interface EventsSectionProps {
+  showMock: boolean
+}
+
+export function EventsSection({ showMock }: EventsSectionProps) {
   return (
     <section
       className="relative z-10"
@@ -12,15 +16,18 @@ export function EventsSection() {
       style={{ padding: "128px 0", backgroundColor: "rgba(28, 27, 27, 0.3)" }}
     >
       <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "0 64px" }}>
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          {/* Left: Featured Hackathon */}
-          <div className="w-full md:w-1/2 scale-in">
-            <h2 className="font-headline-lg mb-6 uppercase">Upcoming Events</h2>
-            <p className="font-body-lg mb-10" style={{ color: "#e2bfb0" }}>
-              Test your limits and build the future in our intensive workshops, hackathons, and developer meetups.
-            </p>
+        {/* Heading Section - aligned to the left matching other sections */}
+        <div className="mb-16 reveal">
+          <h2 className="font-headline-lg mb-4 uppercase">Upcoming Events</h2>
+          <p className="font-body-lg" style={{ color: "#e2bfb0" }}>
+            Test your limits and build the future in our intensive workshops, hackathons, and developer meetups.
+          </p>
+        </div>
 
-            <div className="tilt-card glass-card p-8 rounded-2xl relative overflow-hidden group">
+        <div className={`flex flex-col md:flex-row gap-16 items-center ${showMock ? "" : "justify-center"}`}>
+          {/* Left: Featured Hackathon */}
+          <div className={`${showMock ? "w-full md:w-1/2" : "w-full md:w-2/3 lg:w-1/2"} transition-all duration-500`}>
+            <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4">
                 <span className="material-symbols-outlined animate-pulse" style={{ color: "#ffb693" }}>
                   timer
@@ -68,47 +75,48 @@ export function EventsSection() {
             </div>
           </div>
 
-
           {/* Right: Event List */}
-          <div className="w-full md:w-1/2 grid grid-cols-1 gap-6 reveal">
-            {EVENTS.map((event) => (
-              <div
-                key={event.title}
-                className="glass-card p-6 rounded-xl flex items-center gap-6 hover:translate-x-2 transition-all cursor-pointer"
-                style={{ borderColor: "transparent" }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.4)"
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "transparent"
-                }}
-              >
+          {showMock && (
+            <div className="w-full md:w-1/2 grid grid-cols-1 gap-6 reveal-immediate">
+              {EVENTS.map((event) => (
                 <div
-                  className="w-16 h-16 rounded-lg flex flex-col items-center justify-center font-bold"
-                  style={{ backgroundColor: "#2a2a2a", color: "#ffb693" }}
+                  key={event.title}
+                  className="glass-card p-6 rounded-xl flex items-center gap-6 hover:translate-x-2 transition-all cursor-pointer"
+                  style={{ borderColor: "transparent" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.4)"
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "transparent"
+                  }}
                 >
-                  <span className="text-xl">{event.day}</span>
-                  <span className="text-[10px] uppercase">{event.month}</span>
+                  <div
+                    className="w-16 h-16 rounded-lg flex flex-col items-center justify-center font-bold"
+                    style={{ backgroundColor: "#2a2a2a", color: "#ffb693" }}
+                  >
+                    <span className="text-xl">{event.day}</span>
+                    <span className="text-[10px] uppercase">{event.month}</span>
+                  </div>
+                  <div>
+                    <h4 className="font-headline-md text-lg">{event.title}</h4>
+                    <p className="text-sm" style={{ color: "#e2bfb0" }}>
+                      {event.subtitle}
+                    </p>
+                  </div>
+                  <span className="material-symbols-outlined ml-auto" style={{ color: "#ffb693" }}>
+                    arrow_forward
+                  </span>
                 </div>
-                <div>
-                  <h4 className="font-headline-md text-lg">{event.title}</h4>
-                  <p className="text-sm" style={{ color: "#e2bfb0" }}>
-                    {event.subtitle}
-                  </p>
-                </div>
-                <span className="material-symbols-outlined ml-auto" style={{ color: "#ffb693" }}>
-                  arrow_forward
-                </span>
-              </div>
-            ))}
+              ))}
 
-            <button
-              className="magnetic-hover btn-primary w-full mt-6 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold"
-              style={{ color: "#572000", boxShadow: "0 0 20px rgba(255,107,0,0.2)" }}
-            >
-              All Upcoming Events
-            </button>
-          </div>
+              <button
+                className="magnetic-hover btn-primary w-full mt-6 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold"
+                style={{ color: "#572000", boxShadow: "0 0 20px rgba(255,107,0,0.2)" }}
+              >
+                All Upcoming Events
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
