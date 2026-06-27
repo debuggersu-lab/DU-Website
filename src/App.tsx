@@ -15,9 +15,17 @@ import { useMagneticHover } from "@/hooks/useMagneticHover"
 import { useTiltCards } from "@/hooks/useTiltCards"
 
 export function App() {
-  const [splashDone, setSplashDone] = useState(false)
+  const [splashDone, setSplashDone] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("splashPlayed") === "true"
+    }
+    return false
+  })
 
   const handleSplashComplete = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("splashPlayed", "true")
+    }
     setSplashDone(true)
   }, [])
 

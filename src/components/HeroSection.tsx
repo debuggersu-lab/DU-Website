@@ -11,31 +11,23 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
   const [countersStarted, setCountersStarted] = useState(false)
   const countersRef = useRef<HTMLDivElement>(null)
 
-  const animateHeadline = useCallback(() => {
-    const splitAndWrap = (el: HTMLElement) => {
-      const text = el.textContent || ""
-      el.textContent = ""
-      ;[...text].forEach((char) => {
-        const span = document.createElement("span")
-        span.textContent = char === " " ? "\u00A0" : char
-        span.className = "headline-letter"
-        el.appendChild(span)
-      })
-      return el.querySelectorAll(".headline-letter")
-    }
+  const headlineTimeoutsRef = useRef<number[]>([])
+  const typingTimeoutRef = useRef<number | null>(null)
 
+  const animateHeadline = useCallback(() => {
     if (headlineTopRef.current && headlineBottomRef.current) {
-      const topSpans = splitAndWrap(headlineTopRef.current)
-      const bottomSpans = splitAndWrap(headlineBottomRef.current)
+      const topSpans = headlineTopRef.current.querySelectorAll(".headline-letter")
+      const bottomSpans = headlineBottomRef.current.querySelectorAll(".headline-letter")
 
       const animateBatch = (
         spans: NodeListOf<Element>,
         delayOffset: number
       ) => {
         spans.forEach((span, index) => {
-          setTimeout(() => {
+          const timeoutId = window.setTimeout(() => {
             span.classList.add("visible")
           }, delayOffset + index * 40)
+          headlineTimeoutsRef.current.push(timeoutId)
         })
       }
 
@@ -49,12 +41,13 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
       "A modern developer community helping students build projects, join hackathons, collaborate, and grow together."
     const el = typingRef.current
     if (!el) return
+    el.innerHTML = ""
     let i = 0
     const type = () => {
       if (i < typingText.length) {
         el.innerHTML += typingText.charAt(i)
         i++
-        setTimeout(type, 25)
+        typingTimeoutRef.current = window.setTimeout(type, 25)
       }
     }
     type()
@@ -63,7 +56,15 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
   useEffect(() => {
     if (!animationReady) return
     animateHeadline()
-    setTimeout(typeWriter, 1600)
+    const timer = window.setTimeout(typeWriter, 1600)
+    return () => {
+      window.clearTimeout(timer)
+      if (typingTimeoutRef.current) {
+        window.clearTimeout(typingTimeoutRef.current)
+      }
+      headlineTimeoutsRef.current.forEach((id) => window.clearTimeout(id))
+      headlineTimeoutsRef.current = []
+    }
   }, [animationReady, animateHeadline, typeWriter])
 
   // Counter animation
@@ -114,10 +115,18 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
           style={{ lineHeight: 0.9 }}
         >
           <span ref={headlineTopRef} className="block text-white mb-2">
-            CODE THE VISION,
+            {[..."CODE THE VISION,"].map((char, idx) => (
+              <span key={idx} className="headline-letter">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </span>
           <span ref={headlineBottomRef} className="text-glow-orange">
-            SHAPE THE MISSION
+            {[..."SHAPE THE MISSION"].map((char, idx) => (
+              <span key={idx} className="headline-letter">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </span>
         </h1>
 
