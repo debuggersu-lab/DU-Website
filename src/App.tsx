@@ -8,6 +8,7 @@ import { GlowingDivider } from "@/components/GlowingDivider"
 import { ParticleCanvas } from "@/components/ParticleCanvas"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { EventsSection } from "@/components/EventsSection"
+import { AchievementsSection } from "@/components/AchievementsSection"
 import { LeadershipSection } from "@/components/LeadershipSection"
 import { Footer } from "@/components/Footer"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
@@ -46,6 +47,8 @@ export function App() {
         <ParticleCanvas />
         <ProjectsSection />
         <EventsSection />
+        <GlowingDivider />
+        <AchievementsSection />
         <LeadershipSection />
       </main>
 
@@ -55,3 +58,4 @@ export function App() {
 }
 
 export default App
+

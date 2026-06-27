@@ -52,11 +52,19 @@ export function Navbar() {
           </a>
           <a
             className="transition-colors duration-300 hover:text-[#ffb693]"
+            href="#achievements"
+            style={{ color: "#e2bfb0" }}
+          >
+            Achievements
+          </a>
+          <a
+            className="transition-colors duration-300 hover:text-[#ffb693]"
             href="#"
             style={{ color: "#e2bfb0" }}
           >
             Youtube
           </a>
+
           <a
             className="transition-colors duration-300 hover:text-[#ffb693]"
             href="#"

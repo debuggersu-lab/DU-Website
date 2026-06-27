@@ -137,13 +137,20 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
         />
 
         <div className="flex flex-wrap justify-center gap-6 reveal">
-          <button className="magnetic-hover btn-primary px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg" style={{ color: "#572000" }}>
+          <button
+            onClick={() => {
+              document.getElementById("achievements")?.scrollIntoView({ behavior: "smooth" })
+            }}
+            className="magnetic-hover btn-primary px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg"
+            style={{ color: "#572000" }}
+          >
             ACHIEVEMENTS
           </button>
           <button className="magnetic-hover btn-ghost px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg" style={{ color: "#ffb693" }}>
             ABOUT
           </button>
         </div>
+
       </div>
 
       {/* Stats Overlay Cards */}
