@@ -10,6 +10,7 @@ import { ProjectsSection } from "@/components/ProjectsSection"
 import { EventsSection } from "@/components/EventsSection"
 import { AchievementsSection } from "@/components/AchievementsSection"
 import { LeadershipSection } from "@/components/LeadershipSection"
+import { ContactSection } from "@/components/ContactSection"
 import { Footer } from "@/components/Footer"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { useMagneticHover } from "@/hooks/useMagneticHover"
@@ -50,6 +51,8 @@ export function App() {
         <GlowingDivider />
         <AchievementsSection />
         <LeadershipSection />
+        <GlowingDivider />
+        <ContactSection />
       </main>
 
       <Footer />
@@ -58,4 +61,5 @@ export function App() {
 }
 
 export default App
+
 

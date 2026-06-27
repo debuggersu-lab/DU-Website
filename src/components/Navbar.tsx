@@ -59,32 +59,10 @@ export function Navbar() {
           </a>
           <a
             className="transition-colors duration-300 hover:text-[#ffb693]"
-            href="#"
+            href="#contact"
             style={{ color: "#e2bfb0" }}
           >
-            Youtube
-          </a>
-
-          <a
-            className="transition-colors duration-300 hover:text-[#ffb693]"
-            href="#"
-            style={{ color: "#e2bfb0" }}
-          >
-            Instagram
-          </a>
-          <a
-            className="transition-colors duration-300 hover:text-[#ffb693]"
-            href="#"
-            style={{ color: "#e2bfb0" }}
-          >
-            LinkedIn
-          </a>
-          <a
-            className="transition-colors duration-300 hover:text-[#ffb693]"
-            href="#"
-            style={{ color: "#e2bfb0" }}
-          >
-            Discord
+            Contact
           </a>
         </div>
 
