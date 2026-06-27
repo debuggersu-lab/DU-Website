@@ -24,6 +24,13 @@ export function App() {
     return false
   })
 
+  const [bypassed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("splashPlayed") === "true"
+    }
+    return false
+  })
+
   const handleSplashComplete = useCallback(() => {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("splashPlayed", "true")
@@ -43,7 +50,8 @@ export function App() {
       <Navbar />
 
       <main className="relative z-10">
-        <HeroSection animationReady={splashDone} />
+        <HeroSection animationReady={splashDone} bypassed={bypassed} />
+
         <GlowingDivider />
         <ParticleCanvas />
         <ProjectsSection />

@@ -2,9 +2,10 @@ import { useEffect, useRef, useState, useCallback } from "react"
 
 interface HeroSectionProps {
   animationReady: boolean
+  bypassed?: boolean
 }
 
-export function HeroSection({ animationReady }: HeroSectionProps) {
+export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
   const headlineTopRef = useRef<HTMLSpanElement>(null)
   const headlineBottomRef = useRef<HTMLSpanElement>(null)
   const typingRef = useRef<HTMLParagraphElement>(null)
@@ -55,6 +56,21 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
 
   useEffect(() => {
     if (!animationReady) return
+
+    if (bypassed) {
+      if (headlineTopRef.current && headlineBottomRef.current) {
+        const topSpans = headlineTopRef.current.querySelectorAll(".headline-letter")
+        const bottomSpans = headlineBottomRef.current.querySelectorAll(".headline-letter")
+        topSpans.forEach((span) => span.classList.add("visible"))
+        bottomSpans.forEach((span) => span.classList.add("visible"))
+      }
+      if (typingRef.current) {
+        typingRef.current.innerHTML =
+          "A modern developer community helping students build projects, join hackathons, collaborate, and grow together."
+      }
+      return
+    }
+
     animateHeadline()
     const timer = window.setTimeout(typeWriter, 1600)
     return () => {
@@ -65,7 +81,8 @@ export function HeroSection({ animationReady }: HeroSectionProps) {
       headlineTimeoutsRef.current.forEach((id) => window.clearTimeout(id))
       headlineTimeoutsRef.current = []
     }
-  }, [animationReady, animateHeadline, typeWriter])
+  }, [animationReady, bypassed, animateHeadline, typeWriter])
+
 
   // Counter animation
   useEffect(() => {

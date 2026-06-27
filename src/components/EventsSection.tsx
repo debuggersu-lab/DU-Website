@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 const EVENTS = [
   { day: "12", month: "Oct", title: "System Architecture Deep-dive", subtitle: "Live workshop with FAANG architects." },
   { day: "28", month: "Oct", title: "Open Source Contribution Day", subtitle: "Level up your profile through community builds." },
@@ -5,6 +7,8 @@ const EVENTS = [
 ]
 
 export function EventsSection() {
+  const [registrationClosed, setRegistrationClosed] = useState(false)
+
   return (
     <section
       className="relative z-10"
@@ -27,16 +31,16 @@ export function EventsSection() {
                 </span>
               </div>
               <h3 className="font-headline-md mb-4" style={{ color: "#ffb693" }}>
-                DU Global: Genesis
+                Innofusion 3.0
               </h3>
 
               {/* Countdown */}
               <div className="grid grid-cols-4 gap-4 mb-8">
                 {[
-                  { value: "04", label: "Days" },
-                  { value: "12", label: "Hours" },
-                  { value: "45", label: "Mins" },
-                  { value: "09", label: "Secs" },
+                  { value: "00", label: "Days" },
+                  { value: "00", label: "Hours" },
+                  { value: "00", label: "Mins" },
+                  { value: "00", label: "Secs" },
                 ].map((item) => (
                   <div key={item.label} className="text-center">
                     <div className="font-headline-md" style={{ color: "#e5e2e1" }}>
@@ -50,13 +54,31 @@ export function EventsSection() {
               </div>
 
               <button
-                className="magnetic-hover btn-primary w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest"
-                style={{ color: "#572000" }}
+                onClick={() => setRegistrationClosed(true)}
+                disabled={registrationClosed}
+                className={
+                  registrationClosed
+                    ? "w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center cursor-not-allowed border"
+                    : "magnetic-hover btn-primary w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest"
+                }
+                style={{
+                  color: registrationClosed ? "#ffb4ab" : "#572000",
+                  borderColor: registrationClosed ? "rgba(255, 180, 171, 0.3)" : "transparent",
+                  backgroundColor: registrationClosed ? "rgba(147, 0, 10, 0.1)" : "#ff6b00",
+                  boxShadow: registrationClosed ? "none" : "0 0 20px rgba(255, 107, 0, 0.2)",
+                  transition: "all 0.3s ease",
+                }}
               >
-                Register Your Team
+                {registrationClosed ? "Registration Closed" : "Register Your Team"}
               </button>
+              {registrationClosed && (
+                <p className="font-label-caps text-[10px] text-center mt-4 text-[#ffb4ab] animate-pulse">
+                  System Notice: Registrations for Innofusion 3.0 are officially closed.
+                </p>
+              )}
             </div>
           </div>
+
 
           {/* Right: Event List */}
           <div className="w-full md:w-1/2 grid grid-cols-1 gap-6 reveal">
