@@ -55,6 +55,12 @@ const LEADERS: Leader[] = [
     objectPosition: "center 15%",
   },
   {
+    name: "Soham Chatterjee",
+    role: "Social Media Lead",
+    image: "/Soham Chatterjee.jpeg",
+    objectPosition: "center 0%",
+  },
+  {
     name: "Srijoyee Ghosh",
     role: "PR & Marketing Lead",
     image: "/Srijoyee Ghosh.jpeg",
@@ -82,7 +88,7 @@ export function LeadershipSection() {
           </p>
         </div>
 
-        <div className="flex gap-8 overflow-x-auto pb-12 no-scrollbar snap-x snap-mandatory">
+        <div className="flex gap-8 overflow-x-auto pt-6 pb-12 no-scrollbar snap-x snap-mandatory">
           {LEADERS.map((leader, i) => (
             <LeaderCard key={leader.role + i} leader={leader} i={i} />
           ))}
@@ -141,10 +147,9 @@ function LeaderCard({ leader, i }: { leader: Leader; i: number }) {
         </div>
         <h3 className="font-headline-md text-xl mb-1">{leader.role}</h3>
         <p
-          className="font-label-caps text-sm uppercase tracking-widest pb-1 w-full text-center"
+          className="font-label-caps text-sm uppercase tracking-widest w-full text-center"
           style={{
             color: "rgba(255, 182, 147, 0.6)",
-            borderBottom: "1px dashed rgba(255, 182, 147, 0.2)",
           }}
         >
           {leader.name}

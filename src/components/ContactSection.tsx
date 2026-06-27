@@ -152,9 +152,9 @@ export function ContactSection() {
                     check_circle
                   </span>
                 </div>
-                <h3 className="font-headline-md mb-2 text-white">Message Transmitted!</h3>
+                <h3 className="font-headline-md mb-2 text-white">Message Sent!</h3>
                 <p className="font-body-sm max-w-sm mx-auto mb-8" style={{ color: "#e2bfb0" }}>
-                  Your submission has been logged successfully (mock email details generated in console). We'll reach out shortly.
+                  Thank you for reaching out! We have received your message and will get back to you shortly.
                 </p>
                 <button
                   onClick={handleReset}
@@ -168,9 +168,9 @@ export function ContactSection() {
               // Form State
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-headline-md text-2xl text-white">Secure Transmission</h3>
+                  <h3 className="font-headline-md text-2xl text-white">Send a Message</h3>
                   <p className="font-body-sm" style={{ color: "#e2bfb0" }}>
-                    Complete the secure hand-shake payload below.
+                    Fill out the form below, and we will get back to you shortly.
                   </p>
                 </div>
 
@@ -178,7 +178,7 @@ export function ContactSection() {
                   {/* Name Input */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="font-label-caps text-xs text-white/70">
-                      IDENTIFIER / NAME
+                      YOUR NAME
                     </label>
                     <input
                       id="name"
@@ -199,7 +199,7 @@ export function ContactSection() {
                   {/* Email Input */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="font-label-caps text-xs text-white/70">
-                      RETURN ROUTE / EMAIL
+                      YOUR EMAIL
                     </label>
                     <input
                       id="email"
@@ -221,7 +221,7 @@ export function ContactSection() {
                 {/* Subject Input */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="subject" className="font-label-caps text-xs text-white/70">
-                    PACKET PURPOSE / SUBJECT
+                    SUBJECT
                   </label>
                   <input
                     id="subject"
@@ -242,8 +242,8 @@ export function ContactSection() {
                 {/* Message Input */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="message" className="font-label-caps text-xs text-white/70">
-                    PAYLOAD DATA / MESSAGE
-                  </label>
+                    YOUR MESSAGE
+                    </label>
                   <textarea
                     id="message"
                     required
@@ -266,7 +266,7 @@ export function ContactSection() {
                   className="magnetic-hover btn-primary py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ color: "#572000" }}
                 >
-                  {isSubmitting ? "TRANSMITTING..." : "SEND MESSAGE"}
+                  {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                 </button>
               </form>
             )}

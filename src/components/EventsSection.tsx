@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 const EVENTS = [
   { day: "12", month: "Oct", title: "System Architecture Deep-dive", subtitle: "Live workshop with FAANG architects." },
   { day: "28", month: "Oct", title: "Open Source Contribution Day", subtitle: "Level up your profile through community builds." },
@@ -7,8 +5,6 @@ const EVENTS = [
 ]
 
 export function EventsSection() {
-  const [registrationClosed, setRegistrationClosed] = useState(false)
-
   return (
     <section
       className="relative z-10"
@@ -54,28 +50,21 @@ export function EventsSection() {
               </div>
 
               <button
-                onClick={() => setRegistrationClosed(true)}
-                disabled={registrationClosed}
-                className={
-                  registrationClosed
-                    ? "w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center cursor-not-allowed border"
-                    : "magnetic-hover btn-primary w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest"
-                }
+                disabled
+                className="w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center cursor-not-allowed border"
                 style={{
-                  color: registrationClosed ? "#ffb4ab" : "#572000",
-                  borderColor: registrationClosed ? "rgba(255, 180, 171, 0.3)" : "transparent",
-                  backgroundColor: registrationClosed ? "rgba(147, 0, 10, 0.1)" : "#ff6b00",
-                  boxShadow: registrationClosed ? "none" : "0 0 20px rgba(255, 107, 0, 0.2)",
+                  color: "#ffb4ab",
+                  borderColor: "rgba(255, 180, 171, 0.3)",
+                  backgroundColor: "rgba(147, 0, 10, 0.1)",
+                  boxShadow: "none",
                   transition: "all 0.3s ease",
                 }}
               >
-                {registrationClosed ? "Registration Closed" : "Register Your Team"}
+                Registration Closed
               </button>
-              {registrationClosed && (
-                <p className="font-label-caps text-[10px] text-center mt-4 text-[#ffb4ab] animate-pulse">
-                  System Notice: Registrations for Innofusion 3.0 are officially closed.
-                </p>
-              )}
+              <p className="font-label-caps text-[10px] text-center mt-4 text-[#ffb4ab] animate-pulse">
+                System Notice: Registrations for Innofusion 3.0 are officially closed.
+              </p>
             </div>
           </div>
 
