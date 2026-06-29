@@ -16,9 +16,9 @@ export function Footer() {
         <div className="flex flex-col gap-4 lg:col-span-2">
           <div className="flex items-center gap-3">
             <img
-              src="/nav.jpeg"
+              src="/logo.jpg"
               alt="DU Logo"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-contain"
               style={{
                 filter: "drop-shadow(0 0 8px rgba(255,107,0,0.5))",
                 border: "1.5px solid rgba(255,107,0,0.4)",

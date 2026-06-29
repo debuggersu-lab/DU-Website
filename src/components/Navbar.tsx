@@ -28,9 +28,9 @@ export function Navbar() {
         <div className="flex justify-between items-center mx-auto h-full px-margin-mobile md:px-margin-desktop w-full max-w-container-max">
           <div className="flex items-center gap-3">
             <img
-              src="/nav.jpeg"
+              src="/logo.jpg"
               alt="DU Logo"
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-contain"
               style={{
                 filter: "drop-shadow(0 0 10px rgba(255,107,0,0.6))",
                 border: "1.5px solid rgba(255,107,0,0.4)",
@@ -90,9 +90,9 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {menuOpen && (
-        <div 
+        <div
           className="md:hidden fixed left-0 w-full bg-[#131313]/95 backdrop-blur-3xl border-b border-white/10 flex flex-col items-center gap-6 py-8 font-label-caps uppercase z-40"
-          style={{ 
+          style={{
             top: scrolled ? "4.5rem" : "5rem",
             boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)"
           }}
