@@ -27,12 +27,23 @@ const SOCIAL_CHANNELS = [
   },
 ]
 
+const COLLAB_TYPES = [
+  "Event Partnership",
+  "Tech Workshop",
+  "Sponsorship",
+  "Dev Collab",
+  "Other",
+]
+
 export function ContactSection() {
   const [formData, setFormData] = useState({
+    communityName: "",
     name: "",
     email: "",
+    collabType: "Event Partnership",
     subject: "",
-    message: "",
+    deckLink: "",
+    details: "",
   })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -40,17 +51,25 @@ export function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // Simulate API request delay
     setTimeout(() => {
-      console.log("Mock Email Payload Submitted:", formData)
+      console.log("Mock Proposal Payload Submitted:", formData)
       setIsSubmitting(false)
       setSubmitted(true)
-    }, 1200)
+    }, 1500)
   }
 
   const handleReset = () => {
-    setFormData({ name: "", email: "", subject: "", message: "" })
+    setFormData({
+      communityName: "",
+      name: "",
+      email: "",
+      collabType: "Event Partnership",
+      subject: "",
+      deckLink: "",
+      details: "",
+    })
     setSubmitted(false)
   }
 
@@ -61,11 +80,11 @@ export function ContactSection() {
       style={{ padding: "128px 64px", maxWidth: "1440px", margin: "0 auto" }}
     >
       <div className="flex flex-col lg:flex-row gap-16 items-start">
-        {/* Left Column: Direct Channels & Social Links */}
+        {/* Left Column: Direct Channels & Social Links (Reverted to general contact info) */}
         <div className="w-full lg:w-1/2 scale-in">
           <h2 className="font-headline-lg mb-4 uppercase">Get In Touch</h2>
           <p className="font-body-lg mb-10" style={{ color: "#e2bfb0" }}>
-            Have a project in mind, want to collaborate, or have questions about the collective? Connect with us directly.
+            Have a project in mind, want to collaborate, or have questions about the community? Connect with us directly.
           </p>
 
           {/* Email Support Card */}
@@ -135,9 +154,12 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Right Column: Glassmorphic Contact Form */}
+        {/* Right Column: Glassmorphic Partner Form */}
         <div className="w-full lg:w-1/2 reveal">
-          <div className="glass-card p-8 rounded-2xl relative overflow-hidden">
+          <div className="glass-card p-8 rounded-2xl relative overflow-hidden border border-[#ff6b00]/20 hover:border-[#ff6b00]/40 shadow-[0_0_30px_rgba(255,107,0,0.03)] hover:shadow-[0_0_40px_rgba(255,107,0,0.12)] transition-all duration-500">
+            {/* Top decorative gradient bar */}
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#ff6b00] via-[#00dbe9] to-[#7d42ff]" />
+
             {submitted ? (
               // Success State
               <div className="py-12 text-center flex flex-col items-center justify-center">
@@ -152,121 +174,170 @@ export function ContactSection() {
                     check_circle
                   </span>
                 </div>
-                <h3 className="font-headline-md mb-2 text-white">Message Sent!</h3>
+                <h3 className="font-headline-md mb-2 text-white">Proposal Submitted!</h3>
                 <p className="font-body-sm max-w-sm mx-auto mb-8" style={{ color: "#e2bfb0" }}>
-                  Thank you for reaching out! We have received your message and will get back to you shortly.
+                  Thank you for reaching out! We've received your partnership proposal and will review it with our core collective teams.
                 </p>
                 <button
                   onClick={handleReset}
                   className="magnetic-hover btn-ghost px-6 py-3 rounded-lg font-label-caps uppercase text-xs font-bold"
                   style={{ color: "#ffb693" }}
                 >
-                  Send Another Message
+                  Submit Another Proposal
                 </button>
               </div>
             ) : (
               // Form State
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-headline-md text-2xl text-white">Send a Message</h3>
+                  <h3 className="font-headline-md text-2xl text-white uppercase tracking-wider">Partner With Us</h3>
                   <p className="font-body-sm" style={{ color: "#e2bfb0" }}>
-                    Fill out the form below, and we will get back to you shortly.
+                    Complete the details below to initiate a collaboration proposal.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Name Input */}
+                  {/* Community / Org Name */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="communityName" className="font-label-caps text-xs text-white/70">
+                      COMMUNITY / ORGANIZATION
+                    </label>
+                    <input
+                      id="communityName"
+                      type="text"
+                      required
+                      placeholder="e.g. ACM Student Chapter"
+                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      style={{ color: "#e5e2e1" }}
+                      value={formData.communityName}
+                      onChange={(e) => setFormData({ ...formData, communityName: e.target.value })}
+                    />
+                  </div>
+
+                  {/* Name & Role Input */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="font-label-caps text-xs text-white/70">
-                      YOUR NAME
+                      YOUR NAME & ROLE
                     </label>
                     <input
                       id="name"
                       type="text"
                       required
-                      placeholder="e.g. John Doe"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all focus:border-[#ffb693]/50 focus:shadow-[0_0_15px_rgba(255,182,147,0.1)]"
-                      style={{
-                        backgroundColor: "rgba(255, 255, 255, 0.02)",
-                        border: "1px solid rgba(255, 255, 255, 0.1)",
-                        color: "#e5e2e1",
-                      }}
+                      placeholder="e.g. Jane Doe (Lead Organizer)"
+                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      style={{ color: "#e5e2e1" }}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Email Input */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="font-label-caps text-xs text-white/70">
-                      YOUR EMAIL
+                      CONTACT EMAIL
                     </label>
                     <input
                       id="email"
                       type="email"
                       required
-                      placeholder="e.g. coder@gmail.com"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all focus:border-[#ffb693]/50 focus:shadow-[0_0_15px_rgba(255,182,147,0.1)]"
-                      style={{
-                        backgroundColor: "rgba(255, 255, 255, 0.02)",
-                        border: "1px solid rgba(255, 255, 255, 0.1)",
-                        color: "#e5e2e1",
-                      }}
+                      placeholder="e.g. organizer@community.org"
+                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      style={{ color: "#e5e2e1" }}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
                   </div>
+
+                  {/* Subject Input */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="subject" className="font-label-caps text-xs text-white/70">
+                      PROPOSAL SUBJECT
+                    </label>
+                    <input
+                      id="subject"
+                      type="text"
+                      required
+                      placeholder="e.g. Winter Hackathon 2026"
+                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      style={{ color: "#e5e2e1" }}
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    />
+                  </div>
                 </div>
 
-                {/* Subject Input */}
+                {/* Collaboration Type Buttons */}
+                <div className="flex flex-col gap-2.5">
+                  <span className="font-label-caps text-xs text-white/70">COLLABORATION TYPE</span>
+                  <div className="flex flex-wrap gap-3">
+                    {COLLAB_TYPES.map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, collabType: type })}
+                        className={`px-4 py-2.5 rounded-lg border text-[11px] font-label-caps uppercase transition-all tracking-wider font-bold text-center cursor-pointer whitespace-nowrap ${formData.collabType === type
+                            ? "border-[#ff6b00] bg-[#ff6b00]/10 text-[#ffb693] shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                            : "border-white/10 bg-white/2 hover:border-white/30 text-white/70 hover:text-white"
+                          }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Proposal Deck Link (Optional) */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="subject" className="font-label-caps text-xs text-white/70">
-                    SUBJECT
+                  <label htmlFor="deckLink" className="font-label-caps text-xs text-white/70">
+                    PROPOSAL DECK / WEBSITE LINK (OPTIONAL)
                   </label>
                   <input
-                    id="subject"
-                    type="text"
-                    required
-                    placeholder="e.g. Collaboration Proposal"
-                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all focus:border-[#ffb693]/50 focus:shadow-[0_0_15px_rgba(255,182,147,0.1)]"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      color: "#e5e2e1",
-                    }}
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    id="deckLink"
+                    type="url"
+                    placeholder="e.g. https://drive.google.com/file/... or website URL"
+                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                    style={{ color: "#e5e2e1" }}
+                    value={formData.deckLink}
+                    onChange={(e) => setFormData({ ...formData, deckLink: e.target.value })}
                   />
                 </div>
 
-                {/* Message Input */}
+                {/* Details Input */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className="font-label-caps text-xs text-white/70">
-                    YOUR MESSAGE
-                    </label>
+                  <label htmlFor="details" className="font-label-caps text-xs text-white/70">
+                    PROPOSAL DETAILS & COLLAB VISION
+                  </label>
                   <textarea
-                    id="message"
+                    id="details"
                     required
                     rows={4}
-                    placeholder="Enter your message here..."
-                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all focus:border-[#ffb693]/50 focus:shadow-[0_0_15px_rgba(255,182,147,0.1)] resize-none"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      color: "#e5e2e1",
-                    }}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Provide a summary of the event/collab, expected reach, target audience, and what support you are hoping to get from DU..."
+                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] resize-none"
+                    style={{ color: "#e5e2e1" }}
+                    value={formData.details}
+                    onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="magnetic-hover btn-primary py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="magnetic-hover btn-primary py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2"
                   style={{ color: "#572000" }}
                 >
-                  {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
+                  {isSubmitting ? (
+                    <>
+                      <span className="animate-spin h-4 w-4 border-2 border-[#572000] border-t-transparent rounded-full mr-2"></span>
+                      SUBMITTING PROPOSAL...
+                    </>
+                  ) : (
+                    <>
+                      SEND PROPOSAL
+                      <span className="material-symbols-outlined text-base">send</span>
+                    </>
+                  )}
                 </button>
               </form>
             )}

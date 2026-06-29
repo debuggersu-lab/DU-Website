@@ -163,7 +163,13 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
           >
             ACHIEVEMENTS
           </button>
-          <button className="magnetic-hover btn-ghost px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg" style={{ color: "#ffb693" }}>
+          <button
+            onClick={() => {
+              document.getElementById("team-leads")?.scrollIntoView({ behavior: "smooth" })
+            }}
+            className="magnetic-hover btn-ghost px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg"
+            style={{ color: "#ffb693" }}
+          >
             ABOUT
           </button>
         </div>
