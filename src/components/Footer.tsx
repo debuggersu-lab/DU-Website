@@ -10,8 +10,7 @@ export function Footer() {
     >
       {/* Footer Top Content */}
       <div
-        className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
-        style={{ padding: "64px 64px 48px", maxWidth: "1440px" }}
+        className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-margin-mobile md:px-margin-desktop py-12 md:py-16 max-w-container-max"
       >
         {/* Column 1: Identity & Slogan (Spans 2 columns on desktop) */}
         <div className="flex flex-col gap-4 lg:col-span-2">
@@ -90,8 +89,7 @@ export function Footer() {
       {/* Footer Bottom Row */}
       <div className="border-t border-white/5" style={{ backgroundColor: "#0b0b0b" }}>
         <div
-          className="mx-auto flex flex-col sm:flex-row justify-between items-center gap-4"
-          style={{ padding: "24px 64px", maxWidth: "1440px" }}
+          className="mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 px-margin-mobile md:px-margin-desktop py-6 max-w-container-max"
         >
           <span className="font-body-sm text-xs" style={{ color: "#e2bfb0", opacity: 0.5 }}>
             © 2026 Debuggers United. All rights reserved.

@@ -105,28 +105,8 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
   }, [countersStarted])
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden" style={{ padding: "80px 20px 0" }}>
-      {/* Parallax Icons */}
-      <span
-        className="parallax-icon material-symbols-outlined"
-        style={{ fontSize: "128px", top: "20%", left: "10%" }}
-      >
-        terminal
-      </span>
-      <span
-        className="parallax-icon material-symbols-outlined"
-        style={{ fontSize: "96px", bottom: "15%", right: "5%" }}
-      >
-        code_blocks
-      </span>
-      <span
-        className="parallax-icon material-symbols-outlined"
-        style={{ fontSize: "80px", top: "40%", right: "15%" }}
-      >
-        deployed_code
-      </span>
-
-      <div className="max-w-6xl text-center z-10">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-12 md:pt-20 md:pb-0 overflow-hidden px-margin-mobile md:px-0">
+      <div className="max-w-6xl text-center z-10 w-full px-4 mt-8 md:mt-0">
         <h1
           className="font-display-lg mb-8 uppercase tracking-tighter flex flex-col items-center"
           style={{ lineHeight: 0.9 }}
@@ -149,7 +129,7 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
 
         <p
           ref={typingRef}
-          className="typing-container font-code-block mb-12 max-w-2xl mx-auto h-12"
+          className="typing-container font-code-block mb-12 max-w-2xl mx-auto min-h-[4.5rem] sm:min-h-[3rem] h-auto"
           style={{ color: "#e2bfb0" }}
         />
 
@@ -179,8 +159,7 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
       {/* Stats Overlay Cards */}
       <div
         ref={countersRef}
-        className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full reveal"
-        style={{ maxWidth: "1440px", padding: "0 64px" }}
+        className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal"
       >
         <StatCard icon="groups" target={250} label="Active members" started={countersStarted} />
         <StatCard icon="rocket_launch" target={10} label="Projects build" started={countersStarted} />

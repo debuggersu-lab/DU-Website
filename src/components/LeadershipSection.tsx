@@ -76,11 +76,10 @@ const LEADERS: Leader[] = [
 export function LeadershipSection() {
   return (
     <section
-      className="overflow-hidden relative z-10"
+      className="overflow-hidden relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop"
       id="team-leads"
-      style={{ padding: "128px 64px" }}
     >
-      <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
+      <div className="max-w-container-max mx-auto w-full">
         <div className="mb-16 reveal">
           <h2 className="font-headline-lg uppercase mb-4">Our Leadership</h2>
           <p className="font-body-lg" style={{ color: "#e2bfb0" }}>
@@ -88,7 +87,7 @@ export function LeadershipSection() {
           </p>
         </div>
 
-        <div className="flex gap-8 overflow-x-auto pt-6 pb-12 no-scrollbar snap-x snap-mandatory">
+        <div className="flex gap-8 overflow-x-auto pt-6 pb-12 no-scrollbar snap-x snap-mandatory px-margin-mobile md:px-0 -mx-margin-mobile md:mx-0">
           {LEADERS.map((leader, i) => (
             <LeaderCard key={leader.role + i} leader={leader} i={i} />
           ))}

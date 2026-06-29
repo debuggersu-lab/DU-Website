@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export function useTiltCards(dependency?: any) {
+export function useTiltCards(dependency?: unknown) {
   useEffect(() => {
     const tiltCards = document.querySelectorAll<HTMLElement>(".tilt-card")
 

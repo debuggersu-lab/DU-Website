@@ -11,11 +11,11 @@ interface EventsSectionProps {
 export function EventsSection({ showMock }: EventsSectionProps) {
   return (
     <section
-      className="relative z-10"
+      className="relative z-10 py-16 md:py-32"
       id="events"
-      style={{ padding: "128px 0", backgroundColor: "rgba(28, 27, 27, 0.3)" }}
+      style={{ backgroundColor: "rgba(28, 27, 27, 0.3)" }}
     >
-      <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "0 64px" }}>
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full">
         {/* Heading Section - aligned to the left matching other sections */}
         <div className="mb-16 reveal">
           <h2 className="font-headline-lg mb-4 uppercase">Upcoming Events</h2>
@@ -24,7 +24,7 @@ export function EventsSection({ showMock }: EventsSectionProps) {
           </p>
         </div>
 
-        <div className={`flex flex-col md:flex-row gap-16 items-center ${showMock ? "" : "justify-center"}`}>
+        <div className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${showMock ? "" : "justify-center"}`}>
           {/* Left: Featured Hackathon */}
           <div className={`${showMock ? "w-full md:w-1/2" : "w-full md:w-2/3 lg:w-1/2"} transition-all duration-500`}>
             <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
@@ -38,7 +38,7 @@ export function EventsSection({ showMock }: EventsSectionProps) {
               </h3>
 
               {/* Countdown */}
-              <div className="grid grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-8">
                 {[
                   { value: "00", label: "Days" },
                   { value: "00", label: "Hours" },

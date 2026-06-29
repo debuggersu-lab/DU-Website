@@ -35,6 +35,16 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
   const [enterFlare, setEnterFlare] = useState(false)
   const splashRef = useRef<HTMLDivElement>(null)
   const charIndexRef = useRef(0)
+  
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200)
+
+  // Track window resizing for dynamic keyboard scaling
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   // Stage 1: Welcome → Keyboard
   useEffect(() => {
@@ -108,7 +118,16 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
     }, 1000)
   }, [stage, onComplete])
 
-  if (stage === "done" && !splashRef.current) return null
+  // Calculate dynamic scale factor for keyboard (max width of keyboard layout is around 980px)
+  const scaleFactor = Math.max(0.32, Math.min(1, (windowWidth - 32) / 980))
+
+  if (stage === "done") {
+    return (
+      <div id="cinematic-splash" ref={splashRef}>
+        <div className="splash-bg-glow" />
+      </div>
+    )
+  }
 
   return (
     <div id="cinematic-splash" ref={splashRef}>
@@ -116,7 +135,7 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
 
       {/* Stage 1: Welcome */}
       {stage === "welcome" && (
-        <div className="relative z-10 block text-center">
+        <div className="relative z-10 block text-center px-4">
           <h1 className={`splash-text text-5xl md:text-8xl ${welcomeClass}`}>
             WELCOME TO THE COMMUNITY
           </h1>
@@ -126,52 +145,66 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
       {/* Stage 2: Keyboard */}
       {stage === "keyboard" && (
         <div
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4"
           style={{ opacity: 1, visibility: "visible" }}
         >
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <div
-              className="font-code-block text-2xl tracking-[0.2em] mb-4 h-10 uppercase"
+              className="font-code-block text-lg md:text-2xl tracking-[0.2em] mb-4 h-10 uppercase px-4"
               style={{ color: "#ffb693" }}
             >
               {terminalText}
             </div>
           </div>
 
-          <div className="keyboard-frame max-w-6xl w-full mx-4">
-            <div className="keyboard-grid">
-              {KEYBOARD_LAYOUT.map((row, rIdx) => (
-                <div key={rIdx} className="keyboard-row">
-                  {row.map((key, kIdx) => {
-                    const color = RGB_COLORS[(rIdx + kIdx) % RGB_COLORS.length]
-                    const isActive = activeKeys.has(key.toLowerCase()) || (enterFlare && key === "ENTER")
-                    const widthClass = getKeyWidthClass(key, rIdx, kIdx)
+          {/* Dynamic keyboard scaling container */}
+          <div 
+            className="flex items-center justify-center w-full overflow-hidden"
+            style={{ height: `${420 * scaleFactor}px` }}
+          >
+            <div 
+              className="keyboard-frame"
+              style={{ 
+                transform: `scale(${scaleFactor})`,
+                transformOrigin: "center",
+                width: "980px",
+                flexShrink: 0
+              }}
+            >
+              <div className="keyboard-grid">
+                {KEYBOARD_LAYOUT.map((row, rIdx) => (
+                  <div key={rIdx} className="keyboard-row">
+                    {row.map((key, kIdx) => {
+                      const color = RGB_COLORS[(rIdx + kIdx) % RGB_COLORS.length]
+                      const isActive = activeKeys.has(key.toLowerCase()) || (enterFlare && key === "ENTER")
+                      const widthClass = getKeyWidthClass(key, rIdx, kIdx)
 
-                    return (
-                      <div
-                        key={`${rIdx}-${kIdx}`}
-                        className={`key ${widthClass} ${isActive ? "active" : ""}`}
-                        style={{
-                          color: isActive ? "white" : `${color}66`,
-                          boxShadow:
-                            enterFlare && key === "ENTER"
-                              ? "0 0 150px 40px rgba(255, 107, 0, 0.7)"
-                              : undefined,
-                        }}
-                      >
-                        {key}
+                      return (
                         <div
-                          className="key-glow"
+                          key={`${rIdx}-${kIdx}`}
+                          className={`key ${widthClass} ${isActive ? "active" : ""}`}
                           style={{
-                            background: color,
-                            boxShadow: `0 0 15px ${color}`,
+                            color: isActive ? "white" : `${color}66`,
+                            boxShadow:
+                              enterFlare && key === "ENTER"
+                                ? "0 0 150px 40px rgba(255, 107, 0, 0.7)"
+                                : undefined,
                           }}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
-              ))}
+                        >
+                          {key}
+                          <div
+                            className="key-glow"
+                            style={{
+                              background: color,
+                              boxShadow: `0 0 15px ${color}`,
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -180,7 +213,7 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
       {/* Stage 3: Brand Reveal */}
       {stage === "brand" && (
         <div
-          className="absolute inset-0 z-30 flex flex-col items-center justify-center"
+          className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 text-center"
           style={{
             backgroundColor: "rgba(0, 0, 0, 0.9)",
             backdropFilter: "blur(40px)",
@@ -188,25 +221,25 @@ export function CinematicSplash({ onComplete }: CinematicSplashProps) {
             visibility: "visible",
           }}
         >
-          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24 mb-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-24 mb-12">
             <img
               alt="DU Logo 1"
               className="logo-glow w-32 h-32 md:w-56 md:h-56 object-contain rounded-full"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa1AwdF9m9Xo_L1QgQGULjLRWeNuHfTPz61YFUO_nXpSwN4oQYe0T4h9C-1t5ka3EM_duP3erkmWJzmX5fnsYeGOKwydzfPMUSdFmP1TOk31LXP4Oz4X741yrpalWGOcoX18SZki4NCKGDRgpZ5yxQbWZD0WQqEg9DrCawaVkHbXt4PAy4KJruqW_NT5-7yJp5yizYr5CU_2IbbE211kYgp38kYSrKreCeYGHniUrhSY9g3nYpKI2hEGKUQ4i0t8AQkc5fdWulcLDS"
             />
-            <div className="brand-text-reveal text-6xl md:text-[140px] leading-[0.8] text-center">
+            <div className="brand-text-reveal text-5xl md:text-[140px] leading-[0.8] text-center my-4 md:my-0">
               DEBUGGERS
               <br />
               UNITED
             </div>
             <img
               alt="DU Logo 2"
-              className="logo-glow w-32 h-32 md:w-56 md:h-56 object-contain rounded-full"
+              className="logo-glow w-32 h-32 md:w-56 md:h-56 object-contain rounded-full hidden md:block"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBapUHGKaFssuDlAo_bqqFwayetQ92d7lwM-afrl9fIp0IKhd1RpfE5BshzYdn90ASJU5CbyC-x_fpWkKiqw5WGYVXlksOWNbjbpRLM8QAYC0R19TTyvVzN9oT4u_lIY9FAk09XYh7eXQYEZDrFh-Vjx2wYA3B0JwpG3lmYj0NQ9CEQHwY77sCRjW1n2mpRWqvEG6bPu19n_3G0SPfORLv7zu4rjxoeyHxldl_cHdNdMmkK63qUgNJEoWsAtloKmYejxeS4opo_PYe1"
             />
           </div>
           <div
-            className="font-label-caps tracking-[1.5em] uppercase mt-6 text-sm md:text-xl font-bold"
+            className="font-label-caps tracking-[0.5em] md:tracking-[1.5em] uppercase mt-6 text-xs md:text-xl font-bold"
             style={{ color: "#ffb693", opacity: 0.8 }}
           >
             Elite Developer Collective

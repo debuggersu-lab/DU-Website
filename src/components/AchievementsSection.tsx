@@ -29,9 +29,8 @@ interface AchievementsSectionProps {
 export function AchievementsSection({ showMock }: AchievementsSectionProps) {
   return (
     <section
-      className="relative z-10"
+      className="relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
       id="achievements"
-      style={{ padding: "128px 64px", maxWidth: "1440px", margin: "0 auto" }}
     >
       <div className="flex justify-between items-end mb-16 reveal">
         <div>

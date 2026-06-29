@@ -7,11 +7,10 @@ interface ProjectsSectionProps {
 export function ProjectsSection({ showMock }: ProjectsSectionProps) {
   return (
     <section
-      className="relative z-10"
+      className="relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
       id="projects"
-      style={{ padding: "128px 64px", maxWidth: "1440px", margin: "0 auto" }}
     >
-      <div className="flex justify-between items-end mb-16 reveal">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-end mb-16 reveal">
         <div>
           <h2 className="font-headline-lg mb-2 uppercase">Pioneering Projects</h2>
           <p className="font-body-lg" style={{ color: "#e2bfb0" }}>

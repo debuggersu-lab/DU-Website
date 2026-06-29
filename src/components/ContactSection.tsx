@@ -75,11 +75,10 @@ export function ContactSection() {
 
   return (
     <section
-      className="relative z-10"
+      className="relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
       id="contact"
-      style={{ padding: "128px 64px", maxWidth: "1440px", margin: "0 auto" }}
     >
-      <div className="flex flex-col lg:flex-row gap-16 items-start">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
         {/* Left Column: Direct Channels & Social Links (Reverted to general contact info) */}
         <div className="w-full lg:w-1/2 scale-in">
           <h2 className="font-headline-lg mb-4 uppercase">Get In Touch</h2>
@@ -156,7 +155,7 @@ export function ContactSection() {
 
         {/* Right Column: Glassmorphic Partner Form */}
         <div className="w-full lg:w-1/2 reveal">
-          <div className="glass-card p-8 rounded-2xl relative overflow-hidden border border-[#ff6b00]/20 hover:border-[#ff6b00]/40 shadow-[0_0_30px_rgba(255,107,0,0.03)] hover:shadow-[0_0_40px_rgba(255,107,0,0.12)] transition-all duration-500">
+          <div className="glass-card p-5 sm:p-8 rounded-2xl relative overflow-hidden border border-[#ff6b00]/20 hover:border-[#ff6b00]/40 shadow-[0_0_30px_rgba(255,107,0,0.03)] hover:shadow-[0_0_40px_rgba(255,107,0,0.12)] transition-all duration-500">
             {/* Top decorative gradient bar */}
             <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#ff6b00] via-[#00dbe9] to-[#7d42ff]" />
 
