@@ -3,27 +3,33 @@ import { useState } from "react"
 const SOCIAL_CHANNELS = [
   {
     name: "Discord",
-    url: "#",
+    url: "https://discord.gg/ePbFSY2dV",
     icon: "forum",
     description: "Join our active developer chatroom",
   },
   {
     name: "LinkedIn",
-    url: "#",
+    url: "https://www.linkedin.com/company/debuggers-united-official/",
     icon: "work",
     description: "Connect with our collective professionals",
   },
   {
     name: "Youtube",
-    url: "#",
+    url: "https://youtube.com/@debuggersunited-d1o?si=78_LaZ-qvO1JBELX",
     icon: "smart_display",
     description: "Watch our tech streams & builds",
   },
   {
     name: "Instagram",
-    url: "#",
+    url: "https://www.instagram.com/uniteddebuggers?igsh=NThuYWZma3F3a25q",
     icon: "photo_camera",
     description: "Peek behind the scenes updates",
+  },
+  {
+    name: "WhatsApp",
+    url: "https://chat.whatsapp.com/C4bHvxtkMGGLY4NxRyLn7l",
+    icon: "chat",
+    description: "Join our WhatsApp community group",
   },
 ]
 
@@ -102,9 +108,13 @@ export function ContactSection() {
               </div>
               <div>
                 <span className="font-label-caps text-xs text-white/55 block">DIRECT EMAIL</span>
-                <span className="font-headline-md text-xl" style={{ color: "#ffb693" }}>
-                  contact@debuggersunited.dev
-                </span>
+                <a
+                  href="mailto:debuggersu@gmail.com"
+                  className="font-headline-md text-xl hover:text-white transition-colors block"
+                  style={{ color: "#ffb693" }}
+                >
+                  debuggersu@gmail.com
+                </a>
               </div>
             </div>
             <p className="font-body-sm" style={{ color: "#e2bfb0" }}>

@@ -70,9 +70,15 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="magnetic-hover btn-primary px-6 py-3 rounded-lg font-label-caps uppercase tracking-widest font-bold hidden sm:block" style={{ color: "#572000" }}>
+            <a
+              href="https://chat.whatsapp.com/C4bHvxtkMGGLY4NxRyLn7l"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="magnetic-hover btn-primary px-6 py-3 rounded-lg font-label-caps uppercase tracking-widest font-bold hidden sm:block cursor-pointer flex items-center justify-center"
+              style={{ color: "#572000" }}
+            >
               Join Community
-            </button>
+            </a>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -118,16 +124,16 @@ export function Navbar() {
           >
             Contact
           </a>
-          <button
-            onClick={() => {
-              setMenuOpen(false)
-              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-            }}
-            className="btn-primary px-6 py-3 rounded-lg font-label-caps uppercase tracking-widest font-bold w-4/5 text-center mt-2"
+          <a
+            href="https://chat.whatsapp.com/C4bHvxtkMGGLY4NxRyLn7l"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="btn-primary px-6 py-3 rounded-lg font-label-caps uppercase tracking-widest font-bold w-4/5 text-center mt-2 flex items-center justify-center"
             style={{ color: "#572000" }}
           >
             Join Community
-          </button>
+          </a>
         </div>
       )}
     </>

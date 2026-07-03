@@ -66,11 +66,12 @@ export function Footer() {
           </h4>
           <ul className="flex flex-col gap-2.5 font-body-sm text-sm">
             {[
-              { label: "Discord", href: "#" },
+              { label: "Discord", href: "https://discord.gg/ePbFSY2dV" },
               { label: "GitHub", href: "#" },
-              { label: "LinkedIn", href: "#" },
-              { label: "YouTube", href: "#" },
-              { label: "Instagram", href: "#" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/company/debuggers-united-official/" },
+              { label: "YouTube", href: "https://youtube.com/@debuggersunited-d1o?si=78_LaZ-qvO1JBELX" },
+              { label: "Instagram", href: "https://www.instagram.com/uniteddebuggers?igsh=NThuYWZma3F3a25q" },
+              { label: "WhatsApp", href: "https://chat.whatsapp.com/C4bHvxtkMGGLY4NxRyLn7l" },
             ].map((link) => (
               <li key={link.label}>
                 <a
