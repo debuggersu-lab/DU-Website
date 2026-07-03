@@ -53,17 +53,70 @@ export function ContactSection() {
   })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const validateForm = () => {
+    const tempErrors: Record<string, string> = {}
+
+    if (!formData.communityName.trim()) {
+      tempErrors.communityName = "Organization name is required."
+    }
+
+    if (!formData.name.trim()) {
+      tempErrors.name = "Your name and role are required."
+    }
+
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email is required."
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      tempErrors.email = "Please enter a valid email address."
+    }
+
+    if (!formData.subject.trim()) {
+      tempErrors.subject = "Proposal subject is required."
+    }
+
+    if (formData.deckLink && !/^https?:\/\/.+/.test(formData.deckLink)) {
+      tempErrors.deckLink = "Please enter a valid URL starting with http:// or https://."
+    }
+
+    if (!formData.details.trim()) {
+      tempErrors.details = "Proposal details are required."
+    } else if (formData.details.trim().length < 10) {
+      tempErrors.details = "Details should be at least 10 characters."
+    }
+
+    setErrors(tempErrors)
+    return Object.keys(tempErrors).length === 0
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validateForm()) return
+
     setIsSubmitting(true)
 
-    // Simulate API request delay
+    // Simulate submission delay
     setTimeout(() => {
-      console.log("Mock Proposal Payload Submitted:", formData)
+      const emailSubject = `[DU Proposal] ${formData.subject}`
+      const emailBody = `Hi Debuggers United Team,\n\nI would like to submit a collaboration proposal.\n\n` +
+        `----------------------------------------\n` +
+        `Community/Organization: ${formData.communityName}\n` +
+        `Name & Role: ${formData.name}\n` +
+        `Contact Email: ${formData.email}\n` +
+        `Collaboration Type: ${formData.collabType}\n` +
+        `Deck/Website Link: ${formData.deckLink || 'None provided'}\n` +
+        `----------------------------------------\n\n` +
+        `Proposal Details:\n${formData.details}\n\n` +
+        `Best regards,\n${formData.name}`;
+
+      const mailtoUrl = `mailto:debuggersu@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
+
+      window.location.href = mailtoUrl
+
       setIsSubmitting(false)
       setSubmitted(true)
-    }, 1500)
+    }, 1000)
   }
 
   const handleReset = () => {
@@ -76,6 +129,7 @@ export function ContactSection() {
       deckLink: "",
       details: "",
     })
+    setErrors({})
     setSubmitted(false)
   }
 
@@ -173,7 +227,7 @@ export function ContactSection() {
               // Success State
               <div className="py-12 text-center flex flex-col items-center justify-center">
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 animate-bounce"
+                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
                   style={{
                     backgroundColor: "rgba(255, 107, 0, 0.1)",
                     border: "2px solid #ff6b00",
@@ -197,7 +251,7 @@ export function ContactSection() {
               </div>
             ) : (
               // Form State
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                   <h3 className="font-headline-md text-2xl text-white uppercase tracking-wider">Partner With Us</h3>
                   <p className="font-body-sm" style={{ color: "#e2bfb0" }}>
@@ -214,13 +268,23 @@ export function ContactSection() {
                     <input
                       id="communityName"
                       type="text"
-                      required
                       placeholder="e.g. ACM Student Chapter"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.communityName
+                          ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                          : "border-white/10 focus:border-[#ff6b00]/60"
+                        }`}
                       style={{ color: "#e5e2e1" }}
                       value={formData.communityName}
-                      onChange={(e) => setFormData({ ...formData, communityName: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, communityName: e.target.value })
+                        if (errors.communityName) {
+                          setErrors((prev) => ({ ...prev, communityName: "" }))
+                        }
+                      }}
                     />
+                    {errors.communityName && (
+                      <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.communityName}</span>
+                    )}
                   </div>
 
                   {/* Name & Role Input */}
@@ -231,13 +295,23 @@ export function ContactSection() {
                     <input
                       id="name"
                       type="text"
-                      required
                       placeholder="e.g. Jane Doe (Lead Organizer)"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.name
+                          ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                          : "border-white/10 focus:border-[#ff6b00]/60"
+                        }`}
                       style={{ color: "#e5e2e1" }}
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value })
+                        if (errors.name) {
+                          setErrors((prev) => ({ ...prev, name: "" }))
+                        }
+                      }}
                     />
+                    {errors.name && (
+                      <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.name}</span>
+                    )}
                   </div>
                 </div>
 
@@ -250,13 +324,23 @@ export function ContactSection() {
                     <input
                       id="email"
                       type="email"
-                      required
                       placeholder="e.g. organizer@community.org"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.email
+                          ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                          : "border-white/10 focus:border-[#ff6b00]/60"
+                        }`}
                       style={{ color: "#e5e2e1" }}
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, email: e.target.value })
+                        if (errors.email) {
+                          setErrors((prev) => ({ ...prev, email: "" }))
+                        }
+                      }}
                     />
+                    {errors.email && (
+                      <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.email}</span>
+                    )}
                   </div>
 
                   {/* Subject Input */}
@@ -267,13 +351,23 @@ export function ContactSection() {
                     <input
                       id="subject"
                       type="text"
-                      required
                       placeholder="e.g. Winter Hackathon 2026"
-                      className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                      className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.subject
+                          ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                          : "border-white/10 focus:border-[#ff6b00]/60"
+                        }`}
                       style={{ color: "#e5e2e1" }}
                       value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, subject: e.target.value })
+                        if (errors.subject) {
+                          setErrors((prev) => ({ ...prev, subject: "" }))
+                        }
+                      }}
                     />
+                    {errors.subject && (
+                      <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.subject}</span>
+                    )}
                   </div>
                 </div>
 
@@ -287,8 +381,8 @@ export function ContactSection() {
                         type="button"
                         onClick={() => setFormData({ ...formData, collabType: type })}
                         className={`px-4 py-2.5 rounded-lg border text-[11px] font-label-caps uppercase transition-all tracking-wider font-bold text-center cursor-pointer whitespace-nowrap ${formData.collabType === type
-                            ? "border-[#ff6b00] bg-[#ff6b00]/10 text-[#ffb693] shadow-[0_0_15px_rgba(255,107,0,0.15)]"
-                            : "border-white/10 bg-white/2 hover:border-white/30 text-white/70 hover:text-white"
+                          ? "border-[#ff6b00] bg-[#ff6b00]/10 text-[#ffb693] shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                          : "border-white/10 bg-white/2 hover:border-white/30 text-white/70 hover:text-white"
                           }`}
                       >
                         {type}
@@ -306,11 +400,22 @@ export function ContactSection() {
                     id="deckLink"
                     type="url"
                     placeholder="e.g. https://drive.google.com/file/... or website URL"
-                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)]"
+                    className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.deckLink
+                        ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                        : "border-white/10 focus:border-[#ff6b00]/60"
+                      }`}
                     style={{ color: "#e5e2e1" }}
                     value={formData.deckLink}
-                    onChange={(e) => setFormData({ ...formData, deckLink: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, deckLink: e.target.value })
+                      if (errors.deckLink) {
+                        setErrors((prev) => ({ ...prev, deckLink: "" }))
+                      }
+                    }}
                   />
+                  {errors.deckLink && (
+                    <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.deckLink}</span>
+                  )}
                 </div>
 
                 {/* Details Input */}
@@ -320,14 +425,24 @@ export function ContactSection() {
                   </label>
                   <textarea
                     id="details"
-                    required
                     rows={4}
                     placeholder="Provide a summary of the event/collab, expected reach, target audience, and what support you are hoping to get from DU..."
-                    className="px-4 py-3 rounded-lg outline-none text-sm transition-all border border-white/10 bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] resize-none"
+                    className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:border-[#ff6b00]/60 focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] resize-none ${errors.details
+                        ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
+                        : "border-white/10 focus:border-[#ff6b00]/60"
+                      }`}
                     style={{ color: "#e5e2e1" }}
                     value={formData.details}
-                    onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, details: e.target.value })
+                      if (errors.details) {
+                        setErrors((prev) => ({ ...prev, details: "" }))
+                      }
+                    }}
                   />
+                  {errors.details && (
+                    <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.details}</span>
+                  )}
                 </div>
 
                 <button

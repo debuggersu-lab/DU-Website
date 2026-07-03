@@ -6,6 +6,7 @@ interface Leader {
   image: string
   objectPosition?: string
   scale?: number
+  quote?: string
 }
 
 const LEADERS: Leader[] = [
@@ -13,11 +14,13 @@ const LEADERS: Leader[] = [
     name: "Rupam Mandal",
     role: "Director",
     image: "/Rupam Mandal.jpeg",
+    quote: "I didn't start Debuggers United to build a community. I started it to build a family of dreamers, creators, and problem-solvers.",
   },
   {
     name: "Anirudha Kumar Shaw",
     role: "President",
     image: "/Anirudha Kumar Shaw.jpeg",
+    quote: "If one student gains confidence because of this community, then our efforts are already worth it.",
   },
   {
     name: "Taniya Mondal",
@@ -25,46 +28,54 @@ const LEADERS: Leader[] = [
     image: "/Taniya Mondal.jpeg",
     objectPosition: "center 15%",
     scale: 1.3,
+    quote: "The strongest communities aren't built by individuals; they're built by people who believe in each other.",
   },
   {
     name: "Subhadeep Das",
     role: "Operating Lead",
     image: "/Subhadeep Das.jpeg",
+    quote: "Ideas inspire people, but action changes lives. That's what I want this community to stand for.",
   },
   {
     name: "Aditya Jaiswal",
     role: "Developer Lead",
     image: "/Aditya Jaiswal.jpeg",
+    quote: "I believe the best way to learn technology is by building together, one project at a time.",
   },
   {
     name: "Priyanka Kundu",
     role: "Designer Lead",
     image: "/Priyanka Kundu.jpeg",
     objectPosition: "center 20%",
+    quote: "Creativity is how we give our community a voice before a single word is spoken.",
   },
   {
     name: "Soniya Mondal",
     role: "Designer Lead",
     image: "/Soniya Mondal.jpeg",
     objectPosition: "center 15%",
+    quote: "Every pixel we create reflects the passion and identity of our community.",
   },
   {
     name: "Subhajit Roy",
     role: "Social Media Lead",
     image: "/Subhajit Roy.jpeg",
     objectPosition: "center 15%",
+    quote: "Our goal is to turn every post into inspiration and every follower into a future innovator.",
   },
   {
     name: "Soham Chatterjee",
     role: "Social Media Lead",
     image: "/Soham Chatterjee.jpeg",
     objectPosition: "center 0%",
+    quote: "We don't just share content—we build connections that bring our community to life.",
   },
   {
     name: "Srijoyee Ghosh",
     role: "PR & Marketing Lead",
     image: "/Srijoyee Ghosh.jpeg",
     objectPosition: "center 75%",
+    quote: "Every partnership begins with trust, and every conversation opens the door to new opportunities.",
   },
   {
     name: "Name Here",
@@ -110,7 +121,7 @@ function LeaderCard({ leader, i }: { leader: Leader; i: number }) {
       style={{ transitionDelay: `${delayMs}ms` }}
     >
       <div
-        className="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:scale-105 transition-all duration-500"
+        className="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:scale-105 transition-all duration-500 h-full justify-start"
         style={{
           borderColor: hovered ? "rgba(255, 182, 147, 0.6)" : "transparent",
         }}
@@ -146,16 +157,23 @@ function LeaderCard({ leader, i }: { leader: Leader; i: number }) {
         </div>
         <h3 className="font-headline-md text-xl mb-1">{leader.role}</h3>
         <p
-          className="font-label-caps text-sm uppercase tracking-widest w-full text-center"
+          className="font-label-caps text-sm uppercase tracking-widest w-full text-center mb-4"
           style={{
             color: "rgba(255, 182, 147, 0.6)",
           }}
         >
           {leader.name}
         </p>
+
+        {leader.quote && (
+          <p
+            className="font-body-sm text-center italic border-t border-dashed border-white/10 pt-4 w-full"
+            style={{ color: "#e2bfb0", opacity: 0.8 }}
+          >
+            {leader.quote}
+          </p>
+        )}
       </div>
     </div>
   )
 }
-
-

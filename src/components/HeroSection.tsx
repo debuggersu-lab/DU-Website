@@ -145,7 +145,7 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
           </button>
           <button
             onClick={() => {
-              document.getElementById("team-leads")?.scrollIntoView({ behavior: "smooth" })
+              document.getElementById("founders-message")?.scrollIntoView({ behavior: "smooth" })
             }}
             className="magnetic-hover btn-ghost px-8 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold text-lg"
             style={{ color: "#ffb693" }}

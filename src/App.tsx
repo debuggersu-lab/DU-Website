@@ -10,6 +10,8 @@ import { ProjectsSection } from "@/components/ProjectsSection"
 import { EventsSection } from "@/components/EventsSection"
 import { AchievementsSection } from "@/components/AchievementsSection"
 import { LeadershipSection } from "@/components/LeadershipSection"
+import { FoundersMessageSection } from "@/components/FoundersMessageSection"
+import { CoFoundersMessageSection } from "@/components/CoFoundersMessageSection"
 import { ContactSection } from "@/components/ContactSection"
 import { Footer } from "@/components/Footer"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
@@ -76,6 +78,10 @@ export function App() {
         <EventsSection showMock={showMock} />
         <GlowingDivider />
         <AchievementsSection showMock={showMock} />
+        <FoundersMessageSection />
+        <GlowingDivider />
+        <CoFoundersMessageSection />
+        <GlowingDivider />
         <LeadershipSection />
         <GlowingDivider />
         <ContactSection />
