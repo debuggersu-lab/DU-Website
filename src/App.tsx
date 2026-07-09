@@ -46,21 +46,24 @@ export function App() {
   useMagneticHover()
   useTiltCards(showMock)
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === "x") {
-        if (
-          document.activeElement?.tagName === "INPUT" ||
-          document.activeElement?.tagName === "TEXTAREA"
-        ) {
-          return
-        }
-        setShowMock((prev) => !prev)
-      }
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+  // useEffect(() => {
+  //   // Keyboard shortcut disabled for now
+  //   /*
+  //   const handleKeyDown = (e: KeyboardEvent) => {
+  //     if (e.key.toLowerCase() === "x") {
+  //       if (
+  //         document.activeElement?.tagName === "INPUT" ||
+  //         document.activeElement?.tagName === "TEXTAREA"
+  //       ) {
+  //         return
+  //       }
+  //       setShowMock((prev) => !prev)
+  //     }
+  //   }
+  //   window.addEventListener("keydown", handleKeyDown)
+  //   return () => window.removeEventListener("keydown", handleKeyDown)
+  //   */
+  // }, [])
 
   return (
     <>
