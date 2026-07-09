@@ -54,6 +54,7 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const validateForm = () => {
     const tempErrors: Record<string, string> = {}
@@ -90,33 +91,54 @@ export function ContactSection() {
     return Object.keys(tempErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validateForm()) return
 
     setIsSubmitting(true)
+    setSubmitError(null)
 
-    // Simulate submission delay
-    setTimeout(() => {
-      const emailSubject = `[DU Proposal] ${formData.subject}`
-      const emailBody = `Hi Debuggers United Team,\n\nI would like to submit a collaboration proposal.\n\n` +
-        `----------------------------------------\n` +
-        `Community/Organization: ${formData.communityName}\n` +
-        `Name & Role: ${formData.name}\n` +
-        `Contact Email: ${formData.email}\n` +
-        `Collaboration Type: ${formData.collabType}\n` +
-        `Deck/Website Link: ${formData.deckLink || 'None provided'}\n` +
-        `----------------------------------------\n\n` +
-        `Proposal Details:\n${formData.details}\n\n` +
-        `Best regards,\n${formData.name}`;
-
-      const mailtoUrl = `mailto:debuggersu@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
-
-      window.location.href = mailtoUrl
-
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+    if (!accessKey) {
+      setSubmitError("Web3Forms Access Key is missing. Please configure VITE_WEB3FORMS_ACCESS_KEY in your .env file.")
       setIsSubmitting(false)
-      setSubmitted(true)
-    }, 1000)
+      return
+    }
+
+    const payload = {
+      access_key: accessKey,
+      name: formData.name,
+      email: formData.email,
+      subject: `[DU Proposal] ${formData.subject}`,
+      from_name: "Debuggers United Website",
+      "Community / Organization": formData.communityName,
+      "Collaboration Type": formData.collabType,
+      "Deck / Website Link": formData.deckLink || "None provided",
+      message: formData.details,
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        setSubmitted(true)
+      } else {
+        setSubmitError(result.message || "Failed to submit proposal. Please check your network or try again later.")
+      }
+    } catch (error) {
+      setSubmitError("An error occurred while submitting. Please check your internet connection and try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleReset = () => {
@@ -130,6 +152,7 @@ export function ContactSection() {
       details: "",
     })
     setErrors({})
+    setSubmitError(null)
     setSubmitted(false)
   }
 
@@ -444,6 +467,23 @@ export function ContactSection() {
                     <span className="text-xs text-[#ffb4ab] mt-0.5">{errors.details}</span>
                   )}
                 </div>
+
+                {submitError && (
+                  <div
+                    className="p-4 rounded-lg border text-sm flex items-start gap-3 bg-red-950/20 border-red-500/30 text-red-300"
+                    style={{
+                      borderColor: "rgba(255, 180, 171, 0.2)",
+                      backgroundColor: "rgba(147, 0, 10, 0.1)",
+                      color: "#ffb4ab",
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-lg mt-0.5 select-none">error</span>
+                    <div>
+                      <p className="font-bold text-xs uppercase tracking-wider mb-0.5">Submission Error</p>
+                      <p className="text-xs leading-relaxed">{submitError}</p>
+                    </div>
+                  </div>
+                )}
 
                 <button
                   type="submit"

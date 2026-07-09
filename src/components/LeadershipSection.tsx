@@ -78,9 +78,11 @@ const LEADERS: Leader[] = [
     quote: "Every partnership begins with trust, and every conversation opens the door to new opportunities.",
   },
   {
-    name: "Name Here",
+    name: "Aditya Ram",
     role: "Management Lead",
-    image: "", // placeholder
+    image: "/Aditya Ram.jpeg",
+    objectPosition: "center 5%",
+    quote: "Success is managed before it is achieved.",
   },
 ]
 
