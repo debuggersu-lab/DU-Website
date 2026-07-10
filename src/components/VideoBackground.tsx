@@ -1,11 +1,17 @@
 import { useEffect, useRef } from "react"
 import Hls from "hls.js"
 
-export function VideoBackground() {
+interface VideoBackgroundProps {
+  active: boolean
+}
+
+export function VideoBackground({ active }: VideoBackgroundProps) {
   const baseRef = useRef<HTMLVideoElement>(null)
   const overlayRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
+    if (!active) return
+
     const baseSrc =
       "https://stream.mux.com/NcU3HlHeF7CUL86azTTzpy3Tlb00d6iF3BmCdFslMJYM.m3u8"
     const overlaySrc =
@@ -38,7 +44,7 @@ export function VideoBackground() {
       hls1?.destroy()
       hls2?.destroy()
     }
-  }, [])
+  }, [active])
 
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden" style={{ backgroundColor: "#131313" }}>
@@ -49,6 +55,8 @@ export function VideoBackground() {
         loop
         muted
         playsInline
+        role="none"
+        aria-hidden="true"
       />
       <video
         ref={overlayRef}
@@ -57,6 +65,8 @@ export function VideoBackground() {
         loop
         muted
         playsInline
+        role="none"
+        aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/40" style={{ backdropFilter: "brightness(0.7)" }} />
     </div>

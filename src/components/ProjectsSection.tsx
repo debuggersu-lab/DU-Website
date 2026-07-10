@@ -45,6 +45,9 @@ export function ProjectsSection({ showMock }: ProjectsSectionProps) {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     src={project.image}
                     alt={project.title}
+                    width={500}
+                    height={256}
+                    loading="lazy"
                   />
                   <div
                     className="absolute inset-0"
@@ -81,6 +84,9 @@ export function ProjectsSection({ showMock }: ProjectsSectionProps) {
                       className="w-8 h-8 rounded-full border border-white/20"
                       src={project.avatar}
                       alt={project.author}
+                      width={32}
+                      height={32}
+                      loading="lazy"
                     />
                     <span className="font-label-caps text-xs">{project.author}</span>
                   </div>

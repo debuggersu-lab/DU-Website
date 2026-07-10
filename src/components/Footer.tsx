@@ -18,6 +18,9 @@ export function Footer() {
             <img
               src="/logo.jpg"
               alt="DU Logo"
+              width={40}
+              height={40}
+              loading="lazy"
               className="w-10 h-10 rounded-full object-contain"
               style={{
                 filter: "drop-shadow(0 0 8px rgba(255,107,0,0.5))",
@@ -98,6 +101,7 @@ export function Footer() {
             © 2026 Debuggers United. All rights reserved.
           </span>
           <button
+            type="button"
             onClick={scrollToTop}
             className="magnetic-hover flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-xs font-label-caps uppercase tracking-wider transition-all hover:bg-white/5 hover:border-[#ffb693]/30 cursor-pointer"
             style={{ color: "#ffb693" }}

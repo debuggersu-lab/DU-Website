@@ -40,6 +40,9 @@ export function CoFoundersMessageSection() {
               <img
                 src="/Anirudha Kumar Shaw.jpeg"
                 alt="A. Shaw"
+                width={224}
+                height={224}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700"
                 style={{
                   transform: hovered ? "scale(1.08)" : "scale(1)",

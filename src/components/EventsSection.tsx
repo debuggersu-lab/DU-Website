@@ -57,6 +57,7 @@ export function EventsSection({ showMock }: EventsSectionProps) {
               </div>
 
               <button
+                type="button"
                 disabled
                 className="w-full py-4 rounded-xl font-label-caps uppercase font-bold tracking-widest text-center cursor-not-allowed border"
                 style={{
@@ -110,6 +111,7 @@ export function EventsSection({ showMock }: EventsSectionProps) {
               ))}
 
               <button
+                type="button"
                 className="magnetic-hover btn-primary w-full mt-6 py-4 rounded-xl font-label-caps uppercase tracking-widest font-bold"
                 style={{ color: "#572000", boxShadow: "0 0 20px rgba(255,107,0,0.2)" }}
               >

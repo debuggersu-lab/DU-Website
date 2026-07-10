@@ -20,8 +20,7 @@ export function CursorGlow() {
     const animate = () => {
       currentX += (mouseX - currentX) * 0.1
       currentY += (mouseY - currentY) * 0.1
-      glow.style.left = `${currentX}px`
-      glow.style.top = `${currentY}px`
+      glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`
       requestAnimationFrame(animate)
     }
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback } from "react"
 import { CinematicSplash } from "@/components/CinematicSplash"
 import { VideoBackground } from "@/components/VideoBackground"
 import { CursorGlow } from "@/components/CursorGlow"
@@ -33,7 +33,7 @@ export function App() {
     return false
   })
 
-  const [showMock, setShowMock] = useState(false)
+  const [showMock] = useState(false)
 
   const handleSplashComplete = useCallback(() => {
     if (typeof window !== "undefined") {
@@ -68,7 +68,7 @@ export function App() {
   return (
     <>
       {!splashDone && <CinematicSplash onComplete={handleSplashComplete} />}
-      <VideoBackground />
+      <VideoBackground active={splashDone || bypassed} />
       <CursorGlow />
       <Navbar />
 

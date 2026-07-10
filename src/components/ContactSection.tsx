@@ -273,6 +273,7 @@ export function ContactSection() {
                   Thank you for reaching out! We've received your partnership proposal and will review it with our core collective teams.
                 </p>
                 <button
+                  type="button"
                   onClick={handleReset}
                   className="magnetic-hover btn-ghost px-6 py-3 rounded-lg font-label-caps uppercase text-xs font-bold"
                   style={{ color: "#ffb693" }}
@@ -299,6 +300,7 @@ export function ContactSection() {
                     <input
                       id="communityName"
                       type="text"
+                      autoComplete="organization"
                       placeholder="e.g. ACM Student Chapter"
                       className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.communityName
                           ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
@@ -326,6 +328,7 @@ export function ContactSection() {
                     <input
                       id="name"
                       type="text"
+                      autoComplete="name"
                       placeholder="e.g. Jane Doe (Lead Organizer)"
                       className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.name
                           ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"
@@ -355,6 +358,8 @@ export function ContactSection() {
                     <input
                       id="email"
                       type="email"
+                      autoComplete="email"
+                      inputMode="email"
                       placeholder="e.g. organizer@community.org"
                       className={`px-4 py-3 rounded-lg outline-none text-sm transition-all border bg-white/[0.01] focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] ${errors.email
                           ? "border-[#ffb4ab]/50 focus:border-[#ffb4ab]"

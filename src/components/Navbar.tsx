@@ -30,6 +30,8 @@ export function Navbar() {
             <img
               src="/logo.jpg"
               alt="DU Logo"
+              width={48}
+              height={48}
               className="w-12 h-12 rounded-full object-contain"
               style={{
                 filter: "drop-shadow(0 0 10px rgba(255,107,0,0.6))",
@@ -82,6 +84,7 @@ export function Navbar() {
 
             {/* Mobile Hamburger Button */}
             <button
+              type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2 text-[#ffb693] focus:outline-none cursor-pointer flex items-center justify-center"
               aria-label="Toggle Menu"

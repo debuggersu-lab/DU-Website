@@ -135,6 +135,7 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
 
         <div className="flex flex-wrap justify-center gap-6 reveal">
           <button
+            type="button"
             onClick={() => {
               document.getElementById("achievements")?.scrollIntoView({ behavior: "smooth" })
             }}
@@ -144,6 +145,7 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
             ACHIEVEMENTS
           </button>
           <button
+            type="button"
             onClick={() => {
               document.getElementById("founders-message")?.scrollIntoView({ behavior: "smooth" })
             }}

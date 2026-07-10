@@ -142,6 +142,9 @@ function LeaderCard({ leader, i }: { leader: Leader; i: number }) {
             <img
               src={leader.image}
               alt={leader.name}
+              width={176}
+              height={176}
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500"
               style={{
                 objectPosition: leader.objectPosition || "center",

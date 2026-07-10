@@ -18,16 +18,6 @@ export function ParticleCanvas() {
     const mouse = { x: undefined as number | undefined, y: undefined as number | undefined, radius: 60 }
 
     let inView = false
-    const canvasObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          inView = true
-          canvasObserver.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-    canvasObserver.observe(canvas)
 
     let canvasRect = canvas.getBoundingClientRect()
     const handleScroll = () => {
@@ -152,7 +142,10 @@ export function ParticleCanvas() {
     }
 
     let animId: number
+    let isRunning = false
+
     function animate() {
+      if (!isRunning) return
       animId = requestAnimationFrame(animate)
       if (!ctx || !canvas) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -162,6 +155,32 @@ export function ParticleCanvas() {
       }
       ctx.globalCompositeOperation = "source-over"
     }
+
+    function startAnimation() {
+      if (!isRunning) {
+        isRunning = true
+        animate()
+      }
+    }
+
+    function stopAnimation() {
+      isRunning = false
+      cancelAnimationFrame(animId)
+    }
+
+    const canvasObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          inView = true
+          startAnimation()
+        } else {
+          inView = false
+          stopAnimation()
+        }
+      },
+      { threshold: 0.1 }
+    )
+    canvasObserver.observe(canvas)
 
     // Load the logo image
     const image = new Image()
@@ -183,7 +202,6 @@ export function ParticleCanvas() {
         tempCtx.drawImage(image, 0, 0, w, h)
         const imgData = tempCtx.getImageData(0, 0, w, h)
         init(imgData)
-        animate()
       }
     }
 
@@ -196,7 +214,7 @@ export function ParticleCanvas() {
     window.addEventListener("resize", handleResize)
 
     return () => {
-      cancelAnimationFrame(animId)
+      stopAnimation()
       canvasObserver.disconnect()
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("resize", handleResize)
