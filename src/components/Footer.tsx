@@ -67,7 +67,7 @@ export function Footer() {
           <ul className="flex flex-col gap-2.5 font-body-sm text-sm">
             {[
               { label: "Discord", href: "https://discord.gg/ePbFSY2dV" },
-              { label: "GitHub", href: "#" },
+              { label: "GitHub", href: "https://github.com/debuggersu-lab" },
               { label: "LinkedIn", href: "https://www.linkedin.com/company/debuggers-united-official/" },
               { label: "YouTube", href: "https://youtube.com/@debuggersunited-d1o?si=78_LaZ-qvO1JBELX" },
               { label: "Instagram", href: "https://www.instagram.com/uniteddebuggers?igsh=NThuYWZma3F3a25q" },
@@ -76,6 +76,8 @@ export function Footer() {
               <li key={link.label}>
                 <a
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="transition-all hover:text-[#ffb693] hover:translate-x-1 inline-block"
                   style={{ color: "#e2bfb0" }}
                 >

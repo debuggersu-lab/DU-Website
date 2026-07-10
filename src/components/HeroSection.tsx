@@ -111,14 +111,14 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
           className="font-display-lg mb-8 uppercase tracking-tighter flex flex-col items-center"
           style={{ lineHeight: 0.9 }}
         >
-          <span ref={headlineTopRef} className="block text-white mb-2">
+          <span ref={headlineTopRef} className="block text-white mb-2 whitespace-nowrap">
             {[..."CODE THE VISION,"].map((char, idx) => (
               <span key={idx} className="headline-letter">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </span>
-          <span ref={headlineBottomRef} className="text-glow-orange">
+          <span ref={headlineBottomRef} className="text-glow-orange whitespace-nowrap">
             {[..."SHAPE THE MISSION"].map((char, idx) => (
               <span key={idx} className="headline-letter">
                 {char === " " ? "\u00A0" : char}

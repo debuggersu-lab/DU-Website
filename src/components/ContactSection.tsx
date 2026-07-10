@@ -14,6 +14,12 @@ const SOCIAL_CHANNELS = [
     description: "Connect with our collective professionals",
   },
   {
+    name: "GitHub",
+    url: "https://github.com/debuggersu-lab",
+    icon: "code",
+    description: "Explore our open-source repositories",
+  },
+  {
     name: "Youtube",
     url: "https://youtube.com/@debuggersunited-d1o?si=78_LaZ-qvO1JBELX",
     icon: "smart_display",
@@ -170,10 +176,10 @@ export function ContactSection() {
           </p>
 
           {/* Email Support Card */}
-          <div className="glass-card p-8 rounded-2xl mb-8 relative overflow-hidden group">
-            <div className="flex items-center gap-4 mb-4">
+          <div className="glass-card p-5 sm:p-8 rounded-2xl mb-8 relative overflow-hidden group">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
               <div
-                className="w-12 h-12 rounded-lg flex items-center justify-center"
+                className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
                 style={{
                   backgroundColor: "rgba(255, 107, 0, 0.1)",
                   border: "1px solid rgba(255, 107, 0, 0.3)",
@@ -187,14 +193,14 @@ export function ContactSection() {
                 <span className="font-label-caps text-xs text-white/55 block">DIRECT EMAIL</span>
                 <a
                   href="mailto:debuggersu@gmail.com"
-                  className="font-headline-md text-xl hover:text-white transition-colors block"
+                  className="font-headline-md text-lg sm:text-xl hover:text-white transition-colors block break-all"
                   style={{ color: "#ffb693" }}
                 >
                   debuggersu@gmail.com
                 </a>
               </div>
             </div>
-            <p className="font-body-sm" style={{ color: "#e2bfb0" }}>
+            <p className="font-body-sm text-sm leading-relaxed" style={{ color: "#e2bfb0", opacity: 0.8 }}>
               Our core team monitors this inbox daily. Expect responses within 24 hours.
             </p>
           </div>
@@ -208,6 +214,8 @@ export function ContactSection() {
               <a
                 key={channel.name}
                 href={channel.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="glass-card p-4 rounded-xl flex items-center gap-4 hover:translate-x-1 transition-all group"
                 style={{ borderColor: "transparent" }}
                 onMouseEnter={(e) => {
