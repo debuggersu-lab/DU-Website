@@ -27,7 +27,7 @@ const SOCIAL_CHANNELS = [
   },
   {
     name: "Instagram",
-    url: "https://www.instagram.com/uniteddebuggers?igsh=NThuYWZma3F3a25q",
+    url: "https://www.instagram.com/debuggers_united?utm_source=qr&igsh=NThuYWZma3F3a25q",
     icon: "photo_camera",
     description: "Peek behind the scenes updates",
   },

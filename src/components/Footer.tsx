@@ -73,7 +73,7 @@ export function Footer() {
               { label: "GitHub", href: "https://github.com/debuggersu-lab" },
               { label: "LinkedIn", href: "https://www.linkedin.com/company/debuggers-united-official/" },
               { label: "YouTube", href: "https://youtube.com/@debuggersunited-d1o?si=78_LaZ-qvO1JBELX" },
-              { label: "Instagram", href: "https://www.instagram.com/uniteddebuggers?igsh=NThuYWZma3F3a25q" },
+              { label: "Instagram", href: "https://www.instagram.com/debuggers_united?utm_source=qr&igsh=NThuYWZma3F3a25q" },
               { label: "WhatsApp", href: "https://chat.whatsapp.com/C4bHvxtkMGGLY4NxRyLn7l" },
             ].map((link) => (
               <li key={link.label}>
