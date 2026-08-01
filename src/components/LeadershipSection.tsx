@@ -70,6 +70,7 @@ const LEADERS: Leader[] = [
     objectPosition: "center 0%",
     quote: "We don't just share content—we build connections that bring our community to life.",
   },
+  /*
   {
     name: "Srijoyee Ghosh",
     role: "PR & Marketing Lead",
@@ -77,6 +78,7 @@ const LEADERS: Leader[] = [
     objectPosition: "center 75%",
     quote: "Every partnership begins with trust, and every conversation opens the door to new opportunities.",
   },
+  */
   {
     name: "Aditya Ram",
     role: "Management Lead",
