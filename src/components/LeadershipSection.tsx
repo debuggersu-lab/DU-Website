@@ -57,13 +57,6 @@ const LEADERS: Leader[] = [
     quote: "Every pixel we create reflects the passion and identity of our community.",
   },
   {
-    name: "Subhajit Roy",
-    role: "Social Media Lead",
-    image: "/Subhajit Roy.jpeg",
-    objectPosition: "center 15%",
-    quote: "Our goal is to turn every post into inspiration and every follower into a future innovator.",
-  },
-  {
     name: "Soham Chatterjee",
     role: "Social Media Lead",
     image: "/Soham Chatterjee.jpeg",
