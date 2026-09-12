@@ -386,7 +386,7 @@ Stats animate from 0 to target via `requestAnimationFrame` counter when they scr
 | Featured | DU Global: Genesis (hackathon with live countdown) |
 
 ### Leadership Roles (9 cards)
-Director → President → Vice President → Operating Lead → Dev Team Lead → Designer Lead → Social Media Lead → Marketing Lead → Management Lead
+Director → President → Vice President → Operating Lead → Dev Team Lead → Designer Lead → Media Lead → Marketing Lead → Management Lead
 
 ---
 

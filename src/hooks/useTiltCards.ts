@@ -24,9 +24,11 @@ export function useTiltCards(dependency?: unknown) {
         const y = e.clientY - rect.top
         const centerX = rect.width / 2
         const centerY = rect.height / 2
-        const rotateX = (y - centerY) / 20
-        const rotateY = (centerX - x) / 20
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+        const divisor = parseFloat(card.dataset.tiltFactor || "120")
+        const scale = card.dataset.tiltScale || "1.005"
+        const rotateX = (y - centerY) / divisor
+        const rotateY = (centerX - x) / divisor
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`
       }
 
       const leave = () => {
