@@ -9,6 +9,7 @@ import { ParticleCanvas } from "@/components/ParticleCanvas"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { EventsSection } from "@/components/EventsSection"
 import { AchievementsSection } from "@/components/AchievementsSection"
+import { PartnersSection } from "@/components/PartnersSection"
 import { LeadershipSection } from "@/components/LeadershipSection"
 import { FoundersMessageSection } from "@/components/FoundersMessageSection"
 import { CoFoundersMessageSection } from "@/components/CoFoundersMessageSection"
@@ -68,7 +69,7 @@ export function App() {
   return (
     <>
       {!splashDone && <CinematicSplash onComplete={handleSplashComplete} />}
-      <VideoBackground active={splashDone || bypassed} />
+      <VideoBackground />
       <CursorGlow />
       <Navbar />
 
@@ -86,6 +87,8 @@ export function App() {
         <CoFoundersMessageSection />
         <GlowingDivider />
         <LeadershipSection />
+        <GlowingDivider />
+        <PartnersSection />
         <GlowingDivider />
         <ContactSection />
       </main>

@@ -64,6 +64,13 @@ export function Navbar() {
             </a>
             <a
               className="transition-colors duration-300 hover:text-[#ffb693]"
+              href="#partners"
+              style={{ color: "#e2bfb0" }}
+            >
+              Partners
+            </a>
+            <a
+              className="transition-colors duration-300 hover:text-[#ffb693]"
               href="#contact"
               style={{ color: "#e2bfb0" }}
             >
@@ -119,6 +126,13 @@ export function Navbar() {
             href="#achievements"
           >
             Achievements
+          </a>
+          <a
+            onClick={() => setMenuOpen(false)}
+            className="text-[#e2bfb0] hover:text-[#ffb693] transition-colors duration-300"
+            href="#partners"
+          >
+            Partners
           </a>
           <a
             onClick={() => setMenuOpen(false)}

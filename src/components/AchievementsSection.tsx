@@ -9,6 +9,7 @@ export interface Achievement {
   icon?: string
   image?: string
   description: string
+  hackathons?: string[]
   details?: {
     headline: string
     paragraphs: string[]
@@ -21,6 +22,35 @@ export interface Achievement {
 }
 
 const ACHIEVEMENTS: Achievement[] = [
+  {
+    id: "hexafalls-2",
+    title: "HexaFalls 2 — Community Partner",
+    tag: "Certificate of Community Partnership",
+    icon: "verified",
+    image: "/certificates/hexafalls-2.png",
+    description:
+      "Debuggers United received official recognition as Community Partner for HexaFalls 2 at JIS University, collaborating with OWASP, Actian, and MLH.",
+    details: {
+      headline: "🤝 Official Community Partner for HexaFalls 2! 🚀",
+      paragraphs: [
+        "Debuggers United has been awarded a Certificate of Community Partnership for our valuable support as a Community Partner of HexaFalls 2 at JIS University.",
+        "Your collaboration helps us strengthen the tech community and create an unforgettable experience for beginners and innovators alike. Thank you for being an integral part of the HexaFalls 2 journey.",
+      ],
+      highlight: "Together, we continue to turn ideas into innovation. 🤝✨",
+      author: "— Team Debuggers United (DU)",
+      tagline: "Code the Vision. Shape the Mission. 🖤💛",
+    },
+    fullText: `📜 Certificate of Community Partnership — HexaFalls 2 🚀
+
+Debuggers United is proud to serve as an official Community Partner of HexaFalls 2 at JIS University (in association with OWASP, Actian, and Major League Hacking - MLH 2027 Season).
+
+"For your valuable support as a Community Partner of HexaFalls 2 at JIS University. Your collaboration helps us strengthen the tech community and create an unforgettable experience for beginners and innovators alike. Thank you for being an integral part of the HexaFalls 2 journey."
+
+Together, we continue to turn ideas into innovation. 🤝✨
+
+— Team Debuggers United (DU)
+Code the Vision. Shape the Mission. 🖤💛`,
+  },
   {
     id: "innofusion-3.0",
     title: "InnoFusion 3.0 — Campus Evangelist",
@@ -49,7 +79,27 @@ Here’s to more collaborations, more opportunities, and more impact! 🚀
 
 — Team Debuggers United (DU)
 Code the Vision. Shape the Mission. 🖤💛`,
-    featured: true,
+  },
+  {
+    id: "hackathon-representation",
+    title: "Hackathon Representation",
+    tag: "Member Participation",
+    icon: "sports_score",
+    value: "4+",
+    metric: "Major Events",
+    description:
+      "DU members have actively participated and represented our developer collective in premier hackathons:",
+    hackathons: ["DIVERSION", "HACKTROPICA", "HEXAFALLS", "ODDO × ADAMAS"],
+    fullText: `🚀 Hackathons Participated by DU Members
+
+Debuggers United members have actively participated and represented our collective across premier hackathons:
+
+• DIVERSION
+• HACKTROPICA
+• HEXAFALLS
+• ODDO × ADAMAS
+
+Code the Vision. Shape the Mission. 🖤💛`,
   },
 ]
 
@@ -57,7 +107,7 @@ interface AchievementsSectionProps {
   showMock?: boolean
 }
 
-export function AchievementsSection({ showMock }: AchievementsSectionProps) {
+export function AchievementsSection({ showMock: _showMock }: AchievementsSectionProps) {
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null)
 
   useEffect(() => {
@@ -78,136 +128,158 @@ export function AchievementsSection({ showMock }: AchievementsSectionProps) {
 
   return (
     <section
-      className="relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
+      className="relative z-10 py-10 md:py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
       id="achievements"
     >
-      <div className="flex justify-between items-end mb-16 reveal">
+      <div className="flex justify-between items-end mb-6 md:mb-8 reveal">
         <div>
-          <h2 className="font-headline-lg mb-2 uppercase">Elite Achievements</h2>
-          <p className="font-body-lg" style={{ color: "#e2bfb0" }}>
+          <h2 className="font-headline-lg mb-1 uppercase text-2xl md:text-4xl">Elite Achievements</h2>
+          <p className="font-body-lg text-sm md:text-base" style={{ color: "#e2bfb0" }}>
             Milestones and recognition earned by our collective.
           </p>
         </div>
       </div>
 
-      <div className={ACHIEVEMENTS.length === 1 ? "flex justify-center w-full" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"}>
-        {ACHIEVEMENTS.map((item, i) => (
-          <div
-            key={item.id}
-            className={`reveal-immediate ${ACHIEVEMENTS.length === 1 ? "w-full max-w-xl" : item.featured ? "md:col-span-2 lg:col-span-2" : ""}`}
-            style={{ animationDelay: `${(i + 1) * 100}ms` }}
-          >
+      <div className="max-w-6xl mx-auto">
+        <div className={ACHIEVEMENTS.length === 1 ? "flex justify-center w-full" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch"}>
+          {ACHIEVEMENTS.map((item, i) => (
             <div
-              className="tilt-card glass-card group overflow-hidden rounded-2xl flex flex-col justify-between h-full transition-all duration-300"
-              data-tilt-factor="180"
-              data-tilt-scale="1.003"
-              style={{
-                padding: "24px",
-                borderColor: "rgba(255, 182, 147, 0.2)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.5)"
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.2)"
-              }}
+              key={item.id}
+              className={`reveal-immediate ${ACHIEVEMENTS.length === 1 ? "w-full max-w-xl" : "h-full"}`}
+              style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
-              <div>
-                {/* Header Badge & Icon */}
-                <div className="flex justify-between items-start mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center"
-                      style={{
-                        backgroundColor: "rgba(255, 107, 0, 0.1)",
-                        border: "1px solid rgba(255, 107, 0, 0.3)",
-                      }}
-                    >
-                      <span
-                        className="material-symbols-outlined text-xl"
-                        style={{ color: "#ffb693" }}
-                      >
-                        {item.icon || "emoji_events"}
-                      </span>
-                    </div>
-                    <div>
-                      <span
-                        className="font-label-caps text-xs px-3 py-1 rounded-full inline-block"
+              <div
+                className="tilt-card glass-card group overflow-hidden rounded-2xl flex flex-col justify-between h-full transition-all duration-300"
+                data-tilt-factor="180"
+                data-tilt-scale="1.003"
+                style={{
+                  padding: "20px 22px",
+                  borderColor: "rgba(255, 182, 147, 0.2)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.5)"
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 182, 147, 0.2)"
+                }}
+              >
+                <div>
+                  {/* Header Badge & Icon */}
+                  <div className="flex justify-between items-start mb-3.5">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center"
                         style={{
-                          color: "#ffb693",
-                          backgroundColor: "rgba(255, 182, 147, 0.1)",
-                          border: "1px solid rgba(255, 182, 147, 0.2)",
+                          backgroundColor: "rgba(255, 107, 0, 0.1)",
+                          border: "1px solid rgba(255, 107, 0, 0.3)",
                         }}
                       >
-                        {item.tag}
-                      </span>
+                        <span
+                          className="material-symbols-outlined text-lg"
+                          style={{ color: "#ffb693" }}
+                        >
+                          {item.icon || "emoji_events"}
+                        </span>
+                      </div>
+                      <div>
+                        <span
+                          className="font-label-caps text-[11px] px-2.5 py-0.5 rounded-full inline-block"
+                          style={{
+                            color: "#ffb693",
+                            backgroundColor: "rgba(255, 182, 147, 0.1)",
+                            border: "1px solid rgba(255, 182, 147, 0.2)",
+                          }}
+                        >
+                          {item.tag}
+                        </span>
+                      </div>
                     </div>
+
+                    {item.value && (
+                      <div className="text-right">
+                        <div
+                          className="font-headline-lg leading-none text-lg md:text-xl font-bold"
+                          style={{ color: "#ffb693" }}
+                        >
+                          {item.value}
+                        </div>
+                        {item.metric && (
+                          <div
+                            className="font-label-caps text-[9px] uppercase mt-0.5"
+                            style={{ color: "#e2bfb0" }}
+                          >
+                            {item.metric}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
-                  {item.value && (
-                    <div className="text-right">
-                      <div
-                        className="font-headline-lg leading-none text-xl md:text-2xl"
-                        style={{ color: "#ffb693" }}
-                      >
-                        {item.value}
+                  {/* Full-Width Certificate Display */}
+                  {item.image && (
+                    <div
+                      className="relative w-full rounded-xl overflow-hidden cursor-pointer group/img border border-white/15 mb-4 shadow-md bg-[#0c0c0c]"
+                      onClick={() => setSelectedAchievement(item)}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-auto object-cover rounded-xl transition-transform duration-500 group-hover/img:scale-[1.02]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity rounded-xl flex items-end justify-end p-2.5">
+                        <span className="bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/20 text-[10px] text-[#ffb693] flex items-center gap-1 font-label-caps uppercase tracking-wider">
+                          <span className="material-symbols-outlined text-xs">zoom_in</span> Expand
+                        </span>
                       </div>
-                      {item.metric && (
+                    </div>
+                  )}
+
+                  <h3 className="font-headline-md text-base md:text-lg mb-1.5 text-white transition-colors group-hover:text-[#ffb693]">
+                    {item.title}
+                  </h3>
+                  <p className="font-body-sm text-xs md:text-sm leading-relaxed mb-3.5" style={{ color: "#e2bfb0" }}>
+                    {item.description}
+                  </p>
+
+                  {/* Hackathon Badges */}
+                  {item.hackathons && (
+                    <div className="grid grid-cols-2 gap-2.5 my-4">
+                      {item.hackathons.map((h) => (
                         <div
-                          className="font-label-caps text-[10px] uppercase mt-1"
-                          style={{ color: "#e2bfb0" }}
+                          key={h}
+                          className="font-label-caps text-[11px] px-2.5 py-2 rounded-xl font-bold tracking-wider text-center border transition-all duration-300 flex items-center justify-center gap-1.5"
+                          style={{
+                            color: "#ffb693",
+                            backgroundColor: "rgba(255, 107, 0, 0.08)",
+                            borderColor: "rgba(255, 107, 0, 0.25)",
+                          }}
                         >
-                          {item.metric}
+                          <span className="material-symbols-outlined text-xs text-[#ff6b00]">code</span>
+                          <span>{h}</span>
                         </div>
-                      )}
+                      ))}
                     </div>
                   )}
                 </div>
 
-                {/* Complete Uncropped Certificate Display */}
-                {item.image && (
-                  <div
-                    className="relative w-full rounded-xl overflow-hidden cursor-pointer group/img border border-white/15 bg-[#0c0c0c] p-1.5 mb-5 shadow-lg"
-                    onClick={() => setSelectedAchievement(item)}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-auto object-contain rounded-lg transition-transform duration-500 group-hover/img:scale-[1.02]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity rounded-lg flex items-end justify-end p-3">
-                      <span className="bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/20 text-[10px] text-[#ffb693] flex items-center gap-1 font-label-caps uppercase tracking-wider">
-                        <span className="material-symbols-outlined text-xs">zoom_in</span> Expand
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                <h3 className="font-headline-md text-lg md:text-xl mb-2 text-white transition-colors group-hover:text-[#ffb693]">
-                  {item.title}
-                </h3>
-                <p className="font-body-sm text-sm leading-relaxed" style={{ color: "#e2bfb0" }}>
-                  {item.description}
-                </p>
-              </div>
-
-              <div
-                className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between cursor-pointer"
-                onClick={() => (item.details || item.fullText) && setSelectedAchievement(item)}
-              >
-                <span className="font-label-caps text-[10px]" style={{ color: "#ffb693" }}>
-                  {item.image ? "Official Certificate • Click to Expand" : "Verified Milestone"}
-                </span>
-                <span
-                  className="material-symbols-outlined text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
-                  style={{ color: "#ffb693" }}
+                <div
+                  className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between cursor-pointer"
+                  onClick={() => (item.details || item.fullText) && setSelectedAchievement(item)}
                 >
-                  {item.image ? "open_in_full" : "arrow_forward"}
-                </span>
+                  <span className="font-label-caps text-[10px]" style={{ color: "#ffb693" }}>
+                    {item.image ? "Official Certificate • Click to Expand" : "Verified Participation • Click to View"}
+                  </span>
+                  <span
+                    className="material-symbols-outlined text-xs opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                    style={{ color: "#ffb693" }}
+                  >
+                    {item.image ? "open_in_full" : "arrow_forward"}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Certificate / Milestone Modal Dialog */}
@@ -249,7 +321,7 @@ export function AchievementsSection({ showMock }: AchievementsSectionProps) {
               </span>
             </div>
 
-            {/* 3. Certificate Image (plainly on popup, uncropped, no nested container box) */}
+            {/* 3. Certificate Image if available */}
             {selectedAchievement.image && (
               <img
                 src={selectedAchievement.image}
@@ -258,7 +330,7 @@ export function AchievementsSection({ showMock }: AchievementsSectionProps) {
               />
             )}
 
-            {/* 4. Simple text formatting (plainly on popup, no nested container box) */}
+            {/* 4. Text content formatting */}
             {selectedAchievement.fullText && (
               <div className="text-[#e2bfb0] font-sans text-sm md:text-base leading-relaxed space-y-4">
                 {selectedAchievement.fullText.split("\n\n").map((paragraph, idx) => (
@@ -274,5 +346,6 @@ export function AchievementsSection({ showMock }: AchievementsSectionProps) {
     </section>
   )
 }
+
 
 

@@ -45,6 +45,7 @@ export function Footer() {
             {[
               { label: "Home", href: "#" },
               { label: "Achievements", href: "#achievements" },
+              { label: "Community Partners", href: "#partners" },
               { label: "Upcoming Events", href: "#events" },
               { label: "Our Leadership", href: "#team-leads" },
               { label: "Contact Us", href: "#contact" },
