@@ -6,6 +6,14 @@ export interface Partner {
   featured?: boolean
 }
 
+export interface Collaboration {
+  id: string
+  name: string
+  logo: string
+  website?: string
+  featured?: boolean
+}
+
 const PARTNERS: Partner[] = [
   {
     id: "hackquest",
@@ -30,6 +38,15 @@ const PARTNERS: Partner[] = [
     id: "hexafalls",
     name: "Hexafalls 2",
     logo: "/partners/HEXAFALLS 2.png",
+    website: "#",
+  },
+]
+
+export const COLLABORATIONS: Collaboration[] = [
+  {
+    id: "hackspire",
+    name: "HackSpire",
+    logo: "/partners/HACKSPIRE.png",
     website: "#",
   },
 ]
@@ -101,6 +118,65 @@ export function PartnersSection() {
 
           return <div key={partner.id}>{cardInner}</div>
         })}
+      </div>
+
+      {/* Sub-section: Collaborations With */}
+      <div className="mt-16 md:mt-24 reveal" id="collaborations">
+        {/* Subtle Glowing Accent Divider */}
+        <div className="w-full max-w-2xl mx-auto h-[1px] bg-gradient-to-r from-transparent via-[#ff6b00]/30 to-transparent mb-12 md:mb-16" />
+
+        {/* Sub-section Heading */}
+        <div className="text-center mb-10">
+          <h3 className="font-headline-lg text-2xl md:text-4xl uppercase tracking-wider text-white">
+            Collaborations With
+          </h3>
+        </div>
+
+        {/* Collaborations Grid */}
+        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          {COLLABORATIONS.map((collab) => {
+            const cardInner = (
+              <div className="group flex flex-col items-center justify-center text-center p-4 transition-all duration-300 relative">
+                {/* Subtle Ambient Glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#ff6b00]/10 via-[#7d42ff]/10 to-transparent rounded-3xl blur-2xl pointer-events-none -z-10" />
+
+                {/* Logo */}
+                <div className="w-full h-28 md:h-36 flex items-center justify-center mb-3">
+                  <img
+                    src={collab.logo}
+                    alt={collab.name}
+                    className="max-w-full max-h-full object-contain rounded-2xl transition-all duration-300 filter drop-shadow-[0_0_16px_rgba(255,182,147,0.25)] group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                  />
+                </div>
+
+                {/* Collab Name Below */}
+                <h4 className="font-headline-md text-base md:text-lg text-white/90 group-hover:text-[#ffb693] font-medium transition-colors">
+                  {collab.name}
+                </h4>
+              </div>
+            )
+
+            if (collab.website && collab.website !== "#") {
+              return (
+                <a
+                  key={collab.id}
+                  href={collab.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block cursor-pointer w-48 sm:w-56"
+                >
+                  {cardInner}
+                </a>
+              )
+            }
+
+            return (
+              <div key={collab.id} className="w-48 sm:w-56">
+                {cardInner}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

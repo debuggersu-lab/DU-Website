@@ -164,8 +164,8 @@ export function HeroSection({ animationReady, bypassed }: HeroSectionProps) {
         className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal"
       >
         <StatCard icon="groups" target={250} label="Active members" started={countersStarted} />
-        <StatCard icon="rocket_launch" target={10} label="Projects build" started={countersStarted} />
-        <StatCard icon="emoji_events" target={20} label="Hackathons represented" started={countersStarted} />
+        <StatCard icon="sports_score" target={11} label="Hackathons participated" started={countersStarted} />
+        <StatCard icon="emoji_events" target={0} label="Hackathons won" started={countersStarted} />
       </div>
 
     </section>
@@ -187,6 +187,10 @@ function StatCard({
 
   useEffect(() => {
     if (!started) return
+    if (target <= 0) {
+      setCount(0)
+      return
+    }
     const speed = 200
     const inc = target / speed
     let current = 0
