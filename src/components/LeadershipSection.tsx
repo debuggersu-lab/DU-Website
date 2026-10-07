@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 
 interface Leader {
   name: string
@@ -82,23 +82,108 @@ const LEADERS: Leader[] = [
 ]
 
 export function LeadershipSection() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  const checkScroll = useCallback(() => {
+    if (!scrollRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+    setCanScrollLeft(scrollLeft > 10)
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    const maxScroll = scrollWidth - clientWidth
+    if (maxScroll > 0) {
+      setScrollProgress(scrollLeft / maxScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    checkScroll()
+    el.addEventListener("scroll", checkScroll, { passive: true })
+    window.addEventListener("resize", checkScroll)
+    return () => {
+      el.removeEventListener("scroll", checkScroll)
+      window.removeEventListener("resize", checkScroll)
+    }
+  }, [checkScroll])
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return
+    const cardWidth = 352
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -cardWidth : cardWidth,
+      behavior: "smooth",
+    })
+  }
+
   return (
     <section
       className="overflow-hidden relative z-10 py-16 md:py-32 px-margin-mobile md:px-margin-desktop"
       id="team-leads"
     >
       <div className="max-w-container-max mx-auto w-full">
-        <div className="mb-16 reveal">
-          <h2 className="font-headline-lg uppercase mb-4">Our Leadership</h2>
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16 reveal">
+          <h2 className="font-headline-lg uppercase mb-3">Our Leadership</h2>
           <p className="font-body-lg" style={{ color: "#e2bfb0" }}>
             The architects behind the collective.
           </p>
         </div>
 
-        <div className="flex gap-8 overflow-x-auto pt-6 pb-12 no-scrollbar snap-x snap-mandatory px-margin-mobile md:px-0 -mx-margin-mobile md:mx-0">
-          {LEADERS.map((leader, i) => (
-            <LeaderCard key={leader.role + i} leader={leader} i={i} />
-          ))}
+        {/* Scrollable Container with Edge Visual Indicators */}
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            className="flex gap-8 overflow-x-auto pt-6 pb-10 no-scrollbar snap-x snap-mandatory px-margin-mobile md:px-0 -mx-margin-mobile md:mx-0 scroll-smooth"
+          >
+            {LEADERS.map((leader, i) => (
+              <LeaderCard key={leader.role + i} leader={leader} i={i} />
+            ))}
+          </div>
+
+          {/* Right Edge Graphical Hint Button */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-0 bottom-10 w-20 pointer-events-none hidden md:flex items-center justify-end bg-gradient-to-l from-[#050505]/85 to-transparent transition-opacity duration-300">
+              <button
+                type="button"
+                onClick={() => scroll("right")}
+                className="pointer-events-auto mr-1 w-9 h-9 rounded-full glass-card border border-[#ff6b00]/40 text-[#ffb693] hover:text-white hover:border-[#ff6b00] hover:scale-110 flex items-center justify-center transition-all shadow-[0_0_16px_rgba(255,107,0,0.25)] cursor-pointer"
+                aria-label="Scroll right"
+              >
+                <span className="material-symbols-outlined text-lg animate-pulse">chevron_right</span>
+              </button>
+            </div>
+          )}
+
+          {/* Left Edge Graphical Hint Button */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-0 bottom-10 w-20 pointer-events-none hidden md:flex items-center justify-start bg-gradient-to-r from-[#050505]/85 to-transparent transition-opacity duration-300">
+              <button
+                type="button"
+                onClick={() => scroll("left")}
+                className="pointer-events-auto ml-1 w-9 h-9 rounded-full glass-card border border-white/20 text-[#ffb693] hover:text-white hover:border-[#ff6b00] hover:scale-110 flex items-center justify-center transition-all shadow-lg cursor-pointer"
+                aria-label="Scroll left"
+              >
+                <span className="material-symbols-outlined text-lg">chevron_left</span>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Minimal Bottom Track Progress Line */}
+        <div className="flex justify-center items-center mt-2 reveal">
+          <div className="w-20 h-1 bg-white/10 rounded-full overflow-hidden relative">
+            <div
+              className="h-full bg-gradient-to-r from-[#ff6b00] to-[#ffb693] rounded-full transition-all duration-200"
+              style={{
+                width: "35%",
+                transform: `translateX(${scrollProgress * 185}%)`,
+              }}
+            />
+          </div>
         </div>
       </div>
     </section>
